@@ -1,0 +1,490 @@
+<?php
+/**
+ * SaunaFab — Homepage shortcode
+ *
+ * Installation:
+ * 1. Use homepage-a-coller.txt when pasting into WPCode or Code Snippets.
+ * 2. Activate the snippet.
+ * 3. Add [saunafab_homepage] to a full-width WordPress page.
+ *
+ * The image URLs are intentionally grouped near the top so they are easy to replace
+ * with images uploaded to the WordPress Media Library.
+ */
+
+if (!function_exists('saunafab_homepage_shortcode')) {
+    function saunafab_homepage_shortcode() {
+        static $assets_printed = false;
+
+        $images = [
+            'logo' => 'https://saunafab.ca/wp-content/uploads/2024/07/logo-saunafab.png',
+            'hero' => defined('SAUNAFAB_LOCAL_PREVIEW') && SAUNAFAB_LOCAL_PREVIEW
+                ? '/snippets-wordpress/images/sauna-square-edited.png'
+                : 'https://saunafab.ca/wp-content/uploads/2026/10/sauna-square-edited.png',
+            'baril' => defined('SAUNAFAB_LOCAL_PREVIEW') && SAUNAFAB_LOCAL_PREVIEW
+                ? '/snippets-wordpress/images/sauna-baril-edited.png'
+                : 'https://saunafab.ca/wp-content/uploads/2026/10/sauna-baril-edited.png',
+            'cube' => defined('SAUNAFAB_LOCAL_PREVIEW') && SAUNAFAB_LOCAL_PREVIEW
+                ? '/snippets-wordpress/images/sauna-cube-2-edited.png'
+                : 'https://saunafab.ca/wp-content/uploads/2026/10/sauna-cube-2-edited.png',
+            'custom' => defined('SAUNAFAB_LOCAL_PREVIEW') && SAUNAFAB_LOCAL_PREVIEW
+                ? '/snippets-wordpress/images/saunas-baril-et-bains-edited.png'
+                : 'https://saunafab.ca/wp-content/uploads/2026/10/saunas-baril-et-bains-edited.png',
+            'cold' => 'https://saunafab.ca/wp-content/uploads/2024/10/IMG_8270-600x450.jpeg',
+            'shower' => 'https://saunafab.ca/wp-content/uploads/2024/10/623aad07-db93-4adc-8e6e-be2f56f4fb0c-768x1024.jpg',
+            'heater' => 'https://saunafab.ca/wp-content/uploads/2024/10/f19dfdc4-6135-444c-97cd-7b5215f8826d-768x1024.jpg',
+        ];
+
+        foreach ($images as $key => $url) {
+            $images[$key] = esc_url($url);
+        }
+
+        // Embedded SVG backgrounds keep the WordPress snippet self-contained.
+        $product_icons = [
+            'sauna' => 'data:image/svg+xml,' . rawurlencode('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 210" fill="none" stroke="#FAF8F3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M108 163c-38 0-65-28-65-64s27-65 65-65h29c38 0 65 29 65 65s-27 64-65 64Z"/><ellipse cx="108" cy="99" rx="54" ry="64"/><path d="M91 159V76a17 17 0 0 1 34 0v83M98 81h20v48H98Z M119 140v7M66 156l-5 17h31l4-11m49-1 4 12h31l-7-20"/><g stroke-width="1" opacity=".6"><path d="M141 41h18m-8 16h29m-22 21h38m-34 22h40m-44 23h39m-48 21h35M64 61l15 10M55 90h23m-20 32 20-8m-8 32 11-12M94 40v13m23-15v11"/></g><path d="M165 47c11 31 11 73-2 104" stroke-width="3" opacity=".65"/><path d="M46 180h154" stroke-width="1" opacity=".35"/></svg>'),
+            'cold' => 'data:image/svg+xml,' . rawurlencode('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 210" fill="none" stroke="#FAF8F3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="120" cy="75" rx="77" ry="25"/><ellipse cx="120" cy="75" rx="65" ry="17" stroke-width="1" opacity=".65"/><path d="M43 75l10 65c3 17 32 29 67 29s64-12 67-29l10-65M49 109c16 27 126 27 142 0M52 136c16 27 120 27 136 0"/><g stroke-width="1" opacity=".55"><path d="m67 94 8 65m19-60 4 68m22-67v69m26-70-4 68m31-73-8 65"/></g><path d="M82 72V43a8 8 0 0 1 16 0v10M82 57h16M112 77c12-6 21 6 34 0s18-3 23-1" stroke-width="1.4"/><path d="M157 24v15m-7-11 14 7m0-7-14 7" stroke-width="1.2" opacity=".7"/><path d="M48 181h144" stroke-width="1" opacity=".35"/></svg>'),
+            'shower' => 'data:image/svg+xml,' . rawurlencode('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 210" fill="none" stroke="#FAF8F3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M81 158V40a16 16 0 0 1 16-16h40a16 16 0 0 1 16 16v9M75 158V40a22 22 0 0 1 22-22h40a22 22 0 0 1 22 22v9M145 49h22l9 9h-40Z"/><path d="M75 103h12m-6-6v12M54 168l32-14h91l23 14-32 15H77Z M54 168v5l23 15h91l32-15v-5"/><g stroke-width="1" opacity=".55"><path d="m72 168 27-14m-9 23 44-23m-22 29 56-29m-30 29 46-21M144 72v9m12-9v9m12-9v9m-24 16v9m12-9v9m12-9v9m-24 16v9m12-9v9m12-9v9"/></g><path d="M48 194h157" stroke-width="1" opacity=".35"/></svg>'),
+            'heater' => 'data:image/svg+xml,' . rawurlencode('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 210" fill="none" stroke="#FAF8F3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M65 81h88v82H65Z M153 81l24-13v81l-24 14M65 81l24-13h88M106 68V21h21v47M106 31h21M75 163v13h12v-13m55 0v13h12v-14m13-9v13"/><rect x="77" y="94" width="64" height="50" rx="4"/><path d="M92 134c-8-10 0-18 6-23-2 9 5 10 7 15 8-8 10-16 7-22 18 14 20 24 10 32M147 109v15M83 153h45"/><g stroke-width="1" opacity=".55"><path d="m160 92 10-5m-10 13 10-5m-10 13 10-5M85 138l17-5m-3 8 27-5M111 26h11M111 40v20"/></g><path d="M51 184h140" stroke-width="1" opacity=".35"/></svg>'),
+        ];
+
+        ob_start();
+        ?>
+        <div class="sf-site" id="sf-accueil">
+            <?php if (!$assets_printed) : $assets_printed = true; ?>
+                <style>
+                    /* ==============================================================
+                       SaunaFab WordPress embed
+                       01. Tokens and reset
+                       ============================================================== */
+                    @import url('https://fonts.googleapis.com/css2?family=Allura&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
+
+                    .sf-site {
+                        --sf-blue: #16354B;
+                        --sf-blue-deep: #16354B;
+                        --sf-cream: #f3eee4;
+                        --sf-accent: #16354B;
+                        --sf-yellow: #ECD8A9;
+                        --sf-white: #FAF8F3;
+                        --sf-black: #000000;
+                        --sf-ink: #201d1a;
+                        --sf-muted: #786f66;
+                        --sf-max-width: 1180px;
+                        color: var(--sf-ink);
+                        background: var(--sf-cream);
+                        font-family: 'DM Sans', sans-serif;
+                        line-height: 1.4;
+                        overflow: hidden;
+                    }
+
+                    .sf-site *,
+                    .sf-site *::before,
+                    .sf-site *::after { box-sizing: border-box; }
+                    .sf-site img { display: block; max-width: 100%; }
+                    .sf-site a { color: inherit; text-decoration: none; }
+                    .sf-site button,
+                    .sf-site input,
+                    .sf-site textarea { font: inherit; }
+                    .sf-site h1,
+                    .sf-site h2,
+                    .sf-site h3,
+                    .sf-site p { margin-top: 0; }
+                    .sf-width { width: min(var(--sf-max-width), calc(100% - 64px)); margin-inline: auto; }
+                    .sf-site [id] { scroll-margin-top: 96px; }
+                    .sf-clip-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+                    /* ==============================================================
+                       02. Fixed glass header
+                       ============================================================== */
+                    .sf-header {
+                        inset: 0 0 auto;
+                        z-index: 30;
+                        display: flex;
+                        align-items: center;
+                        gap: 38px;
+                        height: 90px;
+                        padding: 0 42px;
+                        color: var(--sf-white);
+                        background: var(--sf-blue-deep);
+                        /* border-bottom: 1px solid rgba(255,255,255,.18); */
+                        backdrop-filter: blur(15px);
+                        -webkit-backdrop-filter: blur(5px);
+                    }
+                    .sf-brand { display: inline-flex; align-items: center; gap: 11px; flex: 0 0 auto; }
+                    .sf-brand img { width: 49px; height: 49px; object-fit: contain; }
+                    .sf-brand span { color: var(--sf-white); font: 400 27px/1 'Allura', cursive; }
+                    .sf-nav { display: flex; align-items: center; gap: 30px; margin-left: auto; }
+                    .sf-nav a,
+                    .sf-lang { font-size: 14px; letter-spacing: .03em; }
+                    .sf-nav a { display: inline-flex; align-items: center; gap: 6px; opacity: .9; transition: color .2s ease, opacity .2s ease; }
+                    .sf-site .sf-nav a:is(:hover, :focus-visible),
+                    .sf-site .sf-lang:is(:hover, :focus-visible),
+                    .sf-site .sf-mobile-nav a:is(:hover, :focus-visible) { color: var(--sf-yellow); opacity: 1; }
+                    .sf-tools { display: flex; align-items: center; gap: 18px; margin-left: 4px; }
+                    .sf-icon { display: grid; place-items: center; color: inherit; background: transparent; border: 0; padding: 0; }
+                    .sf-divider { width: 1px; height: 28px; background: rgba(255,255,255,.38); }
+                    .sf-lang { display: flex; gap: 6px; }
+                    .sf-lang span { opacity: .45; }
+                    .sf-menu-button,
+                    .sf-mobile-nav { display: none; }
+                    .sf-site .sf-mobile-nav[hidden] { display: none; }
+
+                    /* ==============================================================
+                       03. Hero
+                       ============================================================== */
+                    .sf-hero { position: relative; min-height: 770px; display: flex; align-items: center; color: var(--sf-white); overflow: hidden; }
+                    .sf-hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+                    .sf-hero::after { content: ''; position: absolute; inset: 0 auto 0 0; width: 100%; background: linear-gradient(90deg, rgba(7,18,21,.74), rgba(7,18,21,.60) 25%, rgba(7,18,21,.30) 57%, transparent), linear-gradient(0deg, rgba(7,18,21,.34), transparent 36%); }
+                    .sf-hero-content { position: relative; z-index: 1; padding-top: 70px; }
+                    .sf-hero-copy { width: min(570px, 100%); }
+                    .sf-kicker { display: flex; align-items: center; gap: 12px; margin-bottom: 21px; color: var(--sf-muted); font-size: 10px; font-weight: 600; letter-spacing: .25em; text-transform: uppercase; }
+                    .sf-kicker::before { content: ''; width: 32px; height: 1px; background: currentColor; opacity: .65; }
+                    .sf-kicker-light { color: var(--sf-yellow); }
+                    .sf-hero h1 { margin-bottom: 25px; font: 500 clamp(52px, 6.5vw, 86px)/.95 'Playfair Display', Georgia, serif; letter-spacing: -.045em; }
+                    .sf-hero h1 em,
+                    .sf-title em { font-style: italic; font-weight: 500; }
+                    .sf-hero-lede { max-width: 380px; margin-bottom: 33px; color: rgba(250,248,243,.9); font-size: 16px; line-height: 1.55; }
+                    .sf-actions { display: flex; align-items: center; gap: 13px; }
+                    .sf-button { display: inline-flex; align-items: center; justify-content: center; gap: 13px; min-height: 49px; padding: 0 25px; border: 1px solid transparent; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer;  }
+                    .sf-site .sf-button { transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease, border-color .2s ease, filter .2s ease !important; }
+                    .sf-site .sf-button-primary { background: var(--sf-accent); }
+                    .sf-site .sf-button-blue { background: var(--sf-blue); }
+                    .sf-site .sf-button:is(.sf-button-primary, .sf-button-blue),
+                    .sf-site .sf-button:is(.sf-button-primary, .sf-button-blue):is(:hover, :focus, :active) { color: var(--sf-white); }
+                    .sf-site .sf-hero .sf-button-primary,
+                    .sf-site .sf-hero .sf-button-primary:is(:hover, :focus, :active) { background: var(--sf-yellow); color: var(--sf-blue); }
+                    .sf-button-outline { color: var(--sf-white); border-color: currentColor; background: transparent; }
+                    .sf-button-outline-dark { color: var(--sf-ink); }
+                    .sf-button:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+                    @media (hover: hover) and (pointer: fine) {
+                        .sf-button:hover { transform: translateY(-2px); box-shadow: 0 5px 14px rgba(32,29,26,.12); }
+                        .sf-button-primary:hover { filter: brightness(1.06); }
+                        .sf-button-outline:hover { background-color: transparent; }
+                        .sf-button-outline-dark:hover { background-color: rgba(32,29,26,.04); }
+                    }
+                    .sf-button:active { transform: translateY(0); box-shadow: none; }
+                    @media (prefers-reduced-motion: reduce) {
+                        .sf-site .sf-button { transition: none !important; }
+                        .sf-button:hover { transform: none; }
+                    }
+                    .sf-scroll { position: absolute; z-index: 2; right: 40px; bottom: 35px; color: rgba(250,248,243,.8); font-size: 10px; letter-spacing: .15em; text-transform: uppercase; writing-mode: vertical-rl; }
+
+                    /* ==============================================================
+                       04. Benefits strip
+                       ============================================================== */
+                    .sf-benefits { position: relative; z-index: 2; margin-top: -1px; padding: 58px 0; background: var(--sf-blue); color: var(--sf-white); border-top: 1px solid rgba(250,248,243,.14); border-bottom: 1px solid rgba(250,248,243,.14); }
+                    .sf-benefit-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; }
+                    .sf-benefit { display: flex; align-items: flex-start; flex-direction: column; gap: 20px; padding: 0 28px; border-right: 1px solid rgba(250,248,243,.16); }
+                    .sf-benefit:first-child { padding-left: 0; }
+                    .sf-benefit:last-child { padding-right: 0; border-right: 0; }
+                    .sf-benefit-icon { display: grid; place-items: center; width: 54px; height: 54px; color: var(--sf-white); border: 1px solid rgba(250,248,243,.25); border-radius: 50%; background: rgba(250,248,243,.035); }
+                    .sf-benefit-icon svg { width: 27px; height: 27px; }
+                    .sf-benefit h3 { color: var(--sf-white); margin-bottom: 10px; font: 500 23px/1.15 'Playfair Display', Georgia, serif; letter-spacing: -.02em; }
+                    .sf-benefit p { max-width: 215px; margin: 0; color: var(--sf-white); opacity: .75; font-size: 12px; line-height: 1.7; }
+
+                    /* ==============================================================
+                       05. Shared section and model cards
+                       ============================================================== */
+                    .sf-section { padding: 82px 0; }
+                    .sf-section-cream { background: var(--sf-cream); }
+                    .sf-heading-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 42px; }
+                    .sf-title { margin: 0; color: var(--sf-ink); font: 500 clamp(42px, 5vw, 63px)/.98 'Playfair Display', Georgia, serif; letter-spacing: -.045em; }
+                    .sf-text-link { display: inline-flex; align-items: center; gap: 9px; padding-bottom: 9px; border-bottom: 1px solid currentColor; font-size: 12px; font-weight: 600; white-space: nowrap; }
+                    #sf-engagement { background: var(--sf-blue); color: var(--sf-white); }
+                    #sf-engagement .sf-benefit-icon,
+                    #sf-engagement h3,
+                    #sf-engagement p { color: var(--sf-white); }
+                    #sf-modeles { background: var(--sf-blue); color: var(--sf-white); }
+                    #sf-modeles .sf-title,
+                    #sf-modeles .sf-button-outline { color: var(--sf-white); }
+                    .sf-site .sf-button-outline:not(.sf-button-outline-dark):is(:hover, :focus-visible),
+                    #sf-modeles .sf-button-outline:is(:hover, :focus-visible) { color: var(--sf-yellow); border-color: var(--sf-yellow); background-color: transparent; }
+                    .sf-model-grid { display: grid; grid-template-columns: 1.06fr .94fr; gap: 18px; }
+                    .sf-card { position: relative; height: 405px; overflow: hidden; border-radius: 15px; color: var(--sf-white); isolation: isolate; }
+                    .sf-card > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: sepia(.11) saturate(1.08) hue-rotate(-8deg) brightness(1.03) contrast(1.04); }
+                    .sf-card::before { content: ''; position: absolute; z-index: 1; inset: 0; background: linear-gradient(145deg, rgba(255,191,112,.17), rgba(247,157,74,.03) 42%, rgba(21,53,75,.08)); mix-blend-mode: soft-light; }
+                    .sf-card::after { content: ''; position: absolute; z-index: 2; inset: 0; background: linear-gradient(0deg, rgba(9,15,14,.78), rgba(9,15,14,.03) 65%); }
+                    .sf-card-copy { position: absolute; z-index: 3; inset: auto 26px 26px; }
+                    .sf-card-copy span { display: block; margin-bottom: 8px; color: rgba(250,248,243,.7); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; }
+                    .sf-card-copy h3 { margin: 0 0 3px; color: var(--sf-white); font: 500 30px/1 'Playfair Display', Georgia, serif; }
+                    .sf-card-copy p { margin: 0; color: rgba(250,248,243,.82); font-size: 13px; }
+                    .sf-round-arrow { position: absolute; z-index: 3; right: 22px; bottom: 21px; display: grid; place-items: center; width: 45px; height: 45px; border: 1px solid rgba(250,248,243,.75); border-radius: 50%; font-size: 22px; }
+
+                    #sf-modeles .sf-card::after { box-shadow: inset 0 0 0 100vmax rgba(9,15,14,0); transition: box-shadow .2s ease; }
+                    #sf-modeles .sf-card-copy > *,
+                    #sf-modeles .sf-round-arrow { transition: color .2s ease, border-color .2s ease; }
+                    #sf-modeles .sf-card:is(:hover, :focus-visible)::after { box-shadow: inset 0 0 0 100vmax rgba(9,15,14,.22); }
+                    #sf-modeles .sf-card:is(:hover, :focus-visible) .sf-card-copy > *,
+                    #sf-modeles .sf-card:is(:hover, :focus-visible) .sf-round-arrow { color: var(--sf-yellow); border-color: var(--sf-yellow); }
+                    #sf-modeles .sf-card:focus-visible { outline: 2px solid var(--sf-yellow); outline-offset: 4px; }
+                    @media (prefers-reduced-motion: reduce) {
+                        #sf-modeles .sf-card::after,
+                        #sf-modeles .sf-card-copy > *,
+                        #sf-modeles .sf-round-arrow { transition: none; }
+                    }
+
+                    /* ==============================================================
+                       06. Custom sauna section with repeating wave split
+                       06. Custom sauna section with a single soft wave
+                       ============================================================== */
+                    .sf-custom { position: relative; background: var(--sf-cream); overflow: hidden; }
+                    .sf-custom { position: relative; padding-block: 0; background: var(--sf-cream); overflow: hidden; }
+                    .sf-custom-layout { position: relative; display: block; min-height: 560px; }
+                    .sf-custom-copy { position: relative; z-index: 4; display: flex; width: 60%; min-height: 560px; flex-direction: column; justify-content: center; padding: 44px 140px 44px 0; background: var(--sf-cream); clip-path: url(#sf-custom-wave); }
+                    .sf-body-large { max-width: 420px; margin: 28px 0 30px; color: var(--sf-muted); font-size: 15px; line-height: 1.7; }
+                    .sf-custom-image { position: absolute; z-index: 1; inset: 0 calc((100vw - 100%)/-2) 0 auto; width: calc(68vw + (100vw - 100%)/2); overflow: hidden; }
+                    .sf-custom-image img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.11) saturate(1.08) hue-rotate(-8deg) brightness(1.03) contrast(1.04); }
+                    .sf-custom-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(145deg, rgba(255,190,110,.08), rgba(38,31,21,.12)); mix-blend-mode: soft-light; }
+
+                    /* ==============================================================
+                       07. Product categories
+                       ============================================================== */
+                    .sf-blue-section { color: var(--sf-white); background: var(--sf-blue-deep); }
+                    .sf-blue-section .sf-title { color: var(--sf-white); }
+                    .sf-universe-intro { display: flex; align-items: flex-end; justify-content: space-between; gap: 45px; margin-bottom: 45px; }
+                    .sf-universe-intro > p { max-width: 355px; margin: 0 0 4px; color: rgba(250,248,243,.72); font-size: 14px; line-height: 1.65; }
+                    .sf-universe-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+                    .sf-site .sf-universe-card { height: 372px; color: var(--sf-white); background: var(--sf-blue); border: 1px solid rgba(250,248,243,.25); transition: background-color .2s ease-in-out, color .2s ease-in-out, border-color .2s ease-in-out; }
+                    .sf-universe-card::before,
+                    .sf-universe-card::after { display: none; }
+                    .sf-universe-card .sf-card-copy span,
+                    .sf-universe-card .sf-card-copy h3,
+                    .sf-universe-card .sf-card-copy p { color: inherit; }
+                    .sf-universe-card .sf-card-copy span { opacity: .7; }
+                    .sf-universe-card .sf-card-copy p { opacity: .82; }
+                    .sf-product-icon { position: absolute; inset: 24px 16px 125px; background-color: currentColor; -webkit-mask: var(--sf-product-art) center / contain no-repeat; mask: var(--sf-product-art) center / contain no-repeat; opacity: .75; transition: opacity .2s ease; }
+                    .sf-site .sf-universe-card:focus-visible { color: var(--sf-blue); background-color: var(--sf-white); border-color: var(--sf-white); outline: 2px solid var(--sf-white); outline-offset: 4px; }
+                    @media (hover: hover) and (pointer: fine) {
+                        .sf-site .sf-universe-card:hover { color: var(--sf-blue); background-color: var(--sf-white); border-color: var(--sf-white); }
+                        .sf-universe-card:hover .sf-product-icon { opacity: 1; }
+                    }
+                    @media (prefers-reduced-motion: reduce) {
+                        .sf-site .sf-universe-card,
+                        .sf-product-icon { transition: none; }
+                    }
+
+                    /* ==============================================================
+                       08. Testimonials
+                       ============================================================== */
+                    .sf-testimonials { background: var(--sf-cream); }
+                    .sf-testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+                    .sf-testimonial { min-height: 240px; padding: 28px; background: rgba(250,248,243,.68); border: 1px solid rgba(32,29,26,.1); border-radius: 15px; }
+                    .sf-stars { margin-bottom: 21px; color: var(--sf-accent); letter-spacing: .16em; }
+                    .sf-testimonial blockquote { margin: 0 0 25px; color: #403b35; font: 17px/1.45 'Playfair Display', Georgia, serif; }
+                    .sf-testimonial cite { color: var(--sf-muted); font-size: 11px; font-style: normal; }
+
+                    /* ==============================================================
+                       09. Contact and footer
+                       ============================================================== */
+                    .sf-contact { color: var(--sf-white); background: var(--sf-blue-deep); }
+                    .sf-contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 100px; align-items: start; }
+                    .sf-contact .sf-title { color: var(--sf-white); }
+                    .sf-contact-copy > p:not(.sf-kicker) { max-width: 390px; margin: 25px 0 38px; color: rgba(250,248,243,.7); font-size: 14px; line-height: 1.7; }
+                    .sf-contact-details { display: grid; gap: 14px; color: rgba(250,248,243,.84); font-size: 13px; }
+                    .sf-contact-details a { display: block; transition: color .2s ease; }
+                    .sf-site .sf-contact a:not(.sf-button):is(:hover, :focus-visible) { color: var(--sf-yellow); }
+                    .sf-form { padding: 34px 37px 37px; color: var(--sf-ink); background: var(--sf-white); border-radius: 15px; }
+                    .sf-form-title { display: flex; justify-content: space-between; padding-bottom: 18px; border-bottom: 1px solid rgba(250,248,243,.25); color: var(--sf-blue); font: 22px 'Playfair Display', Georgia, serif; }
+                    .sf-form .sf-button { width: 100%; margin-top: 22px; border: 0; }
+                    .sf-footer { color: rgba(250,248,243,.8); background: #112c40; }
+                    .sf-footer-top { display: grid; grid-template-columns: 1.1fr 1fr 1fr; align-items: center; gap: 30px; min-height: 145px; }
+                    .sf-footer-top p { margin: 0; color: rgba(250,248,243,.75); font: 19px/1.1 'Playfair Display', Georgia, serif; }
+                    .sf-footer-links { display: flex; justify-content: flex-end; gap: 25px; font-size: 11px; }
+                    .sf-footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 54px; border-top: 1px solid rgba(250,248,243,.14); color: rgba(250,248,243,.52); font-size: 10px; }
+
+                    /* ==============================================================
+                       10. Responsive behavior
+                       ============================================================== */
+                    @media (max-width: 900px) {
+                        .sf-header { height: 74px; padding: 0 24px; }
+                        .sf-nav, .sf-tools { display: none; }
+                        .sf-menu-button { display: grid; place-items: center; width: 40px; height: 40px; margin-left: auto; color: var(--sf-white); border: 1px solid rgba(250,248,243,.5); border-radius: 50%; background: transparent; }
+                        .sf-mobile-nav { position: absolute; top: 82px; left: 16px; right: 16px; display: grid; gap: 5px; padding: 19px; color: var(--sf-ink); background: rgba(250,248,243,.98); border-radius: 13px; box-shadow: 0 20px 40px rgba(0,0,0,.25); }
+                        .sf-mobile-nav a { display: flex; justify-content: space-between; padding: 12px 7px; border-bottom: 1px solid rgba(32,29,26,.12); font-size: 16px; transition: color .2s ease; }
+                        .sf-benefit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 38px; }
+                        .sf-benefit:nth-child(odd) { padding-left: 0; }
+                        .sf-benefit:nth-child(2) { border-right: 0; }
+                        .sf-custom { padding-block: 48px; }
+                        .sf-custom-copy { width: 100%; min-height: 0; padding: 25px 0 0; clip-path: none; }
+                        .sf-custom-image { position: relative; inset: auto; width: 100%; height: 470px; max-width: 630px; }
+                        .sf-contact-grid { grid-template-columns: 1fr; gap: 52px; }
+                        .sf-universe-grid { grid-template-columns: 1fr 1fr; }
+                    }
+
+                    @media (max-width: 620px) {
+                        .sf-width { width: calc(100% - 38px); }
+                        .sf-header { height: 72px; padding: 0 19px; }
+                        .sf-brand img { width: 42px; height: 42px; }
+                        .sf-brand span { font-size: 23px; }
+                        .sf-hero { min-height: 680px; align-items: flex-end; padding-bottom: 66px; }
+                        .sf-hero::after { width: 100%; background: linear-gradient(90deg, rgba(7,18,21,.76), rgba(7,18,21,.54) 48%, rgba(7,18,21,.06)), linear-gradient(0deg, rgba(7,18,21,.46), transparent 64%); }
+                        .sf-hero h1 { font-size: clamp(50px, 15vw, 73px); }
+                        .sf-actions { align-items: stretch; flex-direction: column; max-width: 255px; }
+                        .sf-benefit-grid,
+                        .sf-model-grid,
+                        .sf-universe-grid,
+                        .sf-testimonial-grid { grid-template-columns: 1fr; }
+                        .sf-benefits { padding: 34px 0; }
+                        .sf-benefit-grid { row-gap: 0; }
+                        .sf-benefit { flex-direction: row; align-items: center; gap: 20px; padding: 24px 0; border-right: 0; border-bottom: 1px solid rgba(250,248,243,.16); }
+                        .sf-benefit-icon { flex-shrink: 0; }
+                        .sf-benefit p { max-width: none; }
+                        .sf-benefit:last-child { border-bottom: 0; }
+                        .sf-heading-row,
+                        .sf-universe-intro { align-items: flex-start; flex-direction: column; gap: 24px; }
+                        .sf-card,
+                        .sf-universe-card,
+                        .sf-universe-card:first-child { height: 330px; grid-column: auto; }
+                        .sf-custom-image { height: 410px; border-radius: 48px 48px 14px 14px; }
+                        .sf-contact { padding-top: 80px; padding-bottom: 80px; }
+                        .sf-form { padding: 27px 22px 24px; }
+                        .sf-footer-top { grid-template-columns: 1fr 1fr; min-height: 190px; gap: 28px 18px; padding: 30px 0; }
+                        .sf-footer-links { display: grid; justify-items: end; gap: 10px; }
+                        .sf-footer-bottom { align-items: flex-start; flex-direction: column; gap: 9px; padding: 17px 0; }
+                    }
+                </style>
+            <?php endif; ?>
+
+            <svg class="sf-clip-defs" aria-hidden="true" focusable="false">
+                <defs>
+                    <clipPath id="sf-custom-wave" clipPathUnits="objectBoundingBox">
+                        <path d="M0,0 H0.86 C0.68,0.33 1.04,0.67 0.78,1 H0 Z" />
+                    </clipPath>
+                </defs>
+            </svg>
+
+            <header class="sf-header">
+                <a class="sf-brand" href="#sf-accueil" aria-label="SaunaFab accueil">
+                    <img src="<?php echo $images['logo']; ?>" alt="SaunaFab">
+                    <span>SaunaFab</span>
+                </a>
+                <nav class="sf-nav" aria-label="Navigation principale">
+                    <a href="#sf-modeles">Saunas</a>
+                    <a href="https://saunafab.ca/bains-froids/">Bains froids</a>
+                    <a href="https://saunafab.ca/douches/">Douches</a>
+                    <a href="https://saunafab.ca/foyers-et-porte-buches/">Foyers</a>
+                    <a href="#sf-contact">Contact</a>
+                </nav>
+                <button class="sf-menu-button" type="button" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+                <nav class="sf-mobile-nav" aria-label="Navigation mobile" hidden>
+                    <a href="#sf-modeles">Saunas</a>
+                    <a href="https://saunafab.ca/bains-froids/">Bains froids</a>
+                    <a href="https://saunafab.ca/douches/">Douches</a>
+                    <a href="https://saunafab.ca/foyers-et-porte-buches/">Foyers</a>
+                    <a href="#sf-contact">Contact</a>
+                </nav>
+            </header>
+
+            <main>
+                <section class="sf-hero" id="sf-hero" aria-labelledby="sf-hero-title">
+                    <img src="<?php echo $images['hero']; ?>" alt="Sauna baril SaunaFab dans une forêt québécoise au coucher du soleil">
+                    <div class="sf-width sf-hero-content">
+                        <div class="sf-hero-copy">
+                            <p class="sf-kicker sf-kicker-light">Un espace pour vous</p>
+                            <h1 id="sf-hero-title">La chaleur<br>de la nature,<br><em>chez vous.</em></h1>
+                            <p class="sf-hero-lede">Saunas en cèdre fabriqués au Québec, conçus pour votre bien-être.</p>
+                            <div class="sf-actions">
+                                <a class="sf-button sf-button-primary" href="#sf-sur-mesure">Créer mon sauna <span aria-hidden="true">→</span></a>
+                                <a class="sf-button sf-button-outline" href="#sf-modeles">Voir nos modèles</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="sf-scroll" href="#sf-engagement">Défiler pour découvrir</a>
+                </section>
+                <section class="sf-section sf-blue-section" id="sf-univers" aria-labelledby="sf-univers-title">
+                    <div class="sf-width">
+                        <div class="sf-universe-intro"><div><p class="sf-kicker sf-kicker-light">Nos produits</p><h2 class="sf-title" id="sf-univers-title">Votre espace détente,<br><em>à votre façon.</em></h2></div><p>Saunas, bains froids, douches et foyers : découvrez nos produits pour créer un espace de bien-être qui vous ressemble.</p></div>
+                        <div class="sf-universe-grid">
+                            <a class="sf-card sf-universe-card" href="#sf-modeles"><span class="sf-product-icon" aria-hidden="true" style="--sf-product-art: url('<?php echo $product_icons['sauna']; ?>')"></span><div class="sf-card-copy"><span>La détente</span><h3>Saunas</h3><p>Baril ou cube, trouvez votre modèle.</p></div></a>
+                            <a class="sf-card sf-universe-card" href="https://saunafab.ca/bains-froids/"><span class="sf-product-icon" aria-hidden="true" style="--sf-product-art: url('<?php echo $product_icons['cold']; ?>')"></span><div class="sf-card-copy"><span>Récupération</span><h3>Bains froids</h3><p>Stimuler. Respirer. Recommencer.</p></div></a>
+                            <a class="sf-card sf-universe-card" href="https://saunafab.ca/douches/"><span class="sf-product-icon" aria-hidden="true" style="--sf-product-art: url('<?php echo $product_icons['shower']; ?>')"></span><div class="sf-card-copy"><span>En plein air</span><h3>Douches</h3><p>Le cèdre, jusque sous la pluie.</p></div></a>
+                            <a class="sf-card sf-universe-card" href="https://saunafab.ca/foyers-et-porte-buches/"><span class="sf-product-icon" aria-hidden="true" style="--sf-product-art: url('<?php echo $product_icons['heater']; ?>')"></span><div class="sf-card-copy"><span>La chaleur</span><h3>Foyers</h3><p>Bois ou électrique, à votre rythme.</p></div></a>
+                        </div>
+                    </div>
+                </section>
+                <section class="sf-section sf-custom" id="sf-sur-mesure" aria-labelledby="sf-custom-title">
+                    <div class="sf-width sf-custom-layout">
+                        <div class="sf-custom-copy">
+                            <p class="sf-kicker">Sur mesure</p>
+                            <h2 class="sf-title" id="sf-custom-title">Créez un sauna<br><em>à votre image.</em></h2>
+                            <p class="sf-body-large">Configurez chaque détail : dimensions, façade, foyer, options et accessoires. Visualisez votre sauna en temps réel et obtenez un prix instantané.</p>
+                            <a class="sf-button sf-button-primary" href="#sf-contact" style="width: 60%">Commencer la configuration <span aria-hidden="true">→</span></a>
+                            
+                        </div>
+                        <div class="sf-custom-image"><img src="<?php echo $images['custom']; ?>" alt="Saunas baril et bains froids SaunaFab"></div>
+                    </div>
+                </section>
+                
+
+
+                <section class="sf-section sf-blue-section" id="sf-modeles" aria-labelledby="sf-modeles-title">
+                    <div class="sf-width">
+                        <div class="sf-heading-row">
+                            <div><p class="sf-kicker sf-kicker-light">Nos saunas</p><h2 class="sf-title" id="sf-modeles-title">Des modèles pour<br><em>tous les espaces.</em></h2></div>
+                            <a class="sf-button sf-button-outline" href="https://saunafab.ca/about-us/">Voir tous les saunas</a>
+                        </div>
+                        <div class="sf-model-grid">
+                            <a class="sf-card" href="https://saunafab.ca/product/sauna-baril-82-pouces-4-places/"><img src="<?php echo $images['baril']; ?>" alt="Sauna baril en cèdre massif"><div class="sf-card-copy"><span>01 / Le classique</span><h3>Sauna baril</h3><p>Authentique et chaleureux.</p></div><span class="sf-round-arrow">→</span></a>
+                            <a class="sf-card" href="https://saunafab.ca/product/nos-saunas-cube/"><img src="<?php echo $images['cube']; ?>" alt="Sauna cube SaunaFab"><div class="sf-card-copy"><span>02 / La ligne pure</span><h3>Sauna cube</h3><p>Moderne et élégant.</p></div><span class="sf-round-arrow">→</span></a>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="sf-benefits" id="sf-engagement" aria-label="Engagements SaunaFab">
+                    <div class="sf-width sf-benefit-grid">
+                        <article class="sf-benefit"><span class="sf-benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7M7 11v9h10v-9M10 20v-6h4v6M12 2v2M3 6l2 2m16-2-2 2"/></svg></span><div><h3>Fabriqué au Québec</h3><p>Des pièces pensées et assemblées chez nous.</p></div></article>
+                        <article class="sf-benefit"><span class="sf-benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 19c-5-4-5-10 0-14 5 4 5 10 0 14Zm0-10v10M14 5h7v14h-7M17 8h4m-4 4h4m-4 4h4"/></svg></span><div><h3>Cèdre massif 1 ½ po</h3><p>Une matière noble, isolante et durable.</p></div></article>
+                        <article class="sf-benefit"><span class="sf-benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6Z"/><path d="m8 12 3 3 5-6"/></svg></span><div><h3>Garantie 3 ans</h3><p>La tranquillité d'esprit, naturellement.</p></div></article>
+                        <article class="sf-benefit"><span class="sf-benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h11v12H3Zm11 5h4l3 4v3h-7M3 10H1m2 4H1"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></span><div><h3>Livraison disponible</h3><p>On vous accompagne jusqu'à la maison.</p></div></article>
+                    </div>
+                </section>
+
+                <section class="sf-section sf-testimonials" aria-labelledby="sf-reviews-title">
+                    <div class="sf-width"><p class="sf-kicker">Ils en parlent</p><h2 class="sf-title" id="sf-reviews-title">Une chaleur qui<br><em>reste avec vous.</em></h2><div class="sf-testimonial-grid" style="margin-top:42px"><article class="sf-testimonial"><div class="sf-stars">★★★★★</div><blockquote>« J'ai fait l'achat d'un sauna chez SaunaFab : très bon choix qualité-prix, et que dire du service hors du commun. »</blockquote><cite>Christian Richer</cite></article><article class="sf-testimonial"><div class="sf-stars">★★★★★</div><blockquote>« Ils ont été d'une grande aide pour faire fonctionner l'appareil de chauffage de mon sauna. »</blockquote><cite>Geneviève Paré</cite></article><article class="sf-testimonial"><div class="sf-stars">★★★★★</div><blockquote>« Le produit est de qualité et Thomas est très réactif aux demandes. Je recommande vivement cette compagnie. »</blockquote><cite>Nicolas Lessard</cite></article></div></div>
+                </section>
+
+                <section class="sf-section sf-contact" id="sf-contact" aria-labelledby="sf-contact-title">
+                    <div class="sf-width sf-contact-grid">
+                        <div class="sf-contact-copy"><p class="sf-kicker sf-kicker-light">Nous joindre</p><h2 class="sf-title" id="sf-contact-title">Votre moment<br><em>commence ici.</em></h2><p>Une question sur un modèle, une installation ou une configuration sur mesure? Thomas et son équipe vous répondent avec plaisir.</p><div class="sf-contact-details"><a href="tel:8193145586">819-314-5586</a><a href="mailto:saunafab@gmail.com">saunafab@gmail.com</a><span>250 route 139, porte 3, Local 5<br>Acton Vale, Québec, J0H 1A0</span><span>Disponible sur rendez-vous</span></div></div>
+                        <div class="sf-form">
+                            <h3 class="sf-form-title">Parlons de votre projet</h3>
+                            <p>Décrivez-nous votre projet dans le formulaire de la page Contact.</p>
+                            <a class="sf-button sf-button-primary" href="<?php echo esc_url(home_url('/elementor-2911/')); ?>">Accéder au formulaire <span aria-hidden="true">→</span></a>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="sf-footer"><div class="sf-width sf-footer-top"><a class="sf-brand" href="#sf-accueil"><img src="<?php echo $images['logo']; ?>" alt=""><span>SaunaFab</span></a><p>La chaleur de la nature,<br><em>chez vous.</em></p><div class="sf-footer-links"><a href="#sf-modeles">Saunas</a><a href="#sf-univers">Bains froids</a><a href="#sf-contact">Nous joindre</a></div></div><div class="sf-width sf-footer-bottom"><span>© <?php echo esc_html(date('Y')); ?> SaunaFab.</span><span>Saunas non échangeables et non remboursables.</span><a href="https://saunafab.ca/en/">English ↗</a></div></footer>
+
+            <script>
+                (function () {
+                    var root = document.currentScript.closest('.sf-site');
+                    if (!root) return;
+                    var menu = root.querySelector('.sf-mobile-nav');
+                    var toggle = root.querySelector('.sf-menu-button');
+                    if (toggle && menu) {
+                        toggle.addEventListener('click', function () {
+                            var open = toggle.getAttribute('aria-expanded') === 'true';
+                            toggle.setAttribute('aria-expanded', String(!open));
+                            menu.hidden = open;
+                        });
+                        menu.querySelectorAll('a').forEach(function (link) {
+                            link.addEventListener('click', function () { menu.hidden = true; toggle.setAttribute('aria-expanded', 'false'); });
+                        });
+                    }
+                    root.querySelectorAll('a[href^="#"]').forEach(function (link) {
+                        link.addEventListener('click', function (event) {
+                            var target = root.querySelector(link.getAttribute('href'));
+                            if (!target) return;
+                            event.preventDefault();
+                            target.scrollIntoView({ behavior: 'smooth' });
+                        });
+                    });
+                }());
+            </script>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    add_shortcode('saunafab_homepage', 'saunafab_homepage_shortcode');
+}

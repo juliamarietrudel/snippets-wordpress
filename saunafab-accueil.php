@@ -1,0 +1,94 @@
+<?php
+/**
+ * Code Snippets : coller sans la première ligne <?php et activer sur le site.
+ * Utilisation dans un bloc Shortcode : [saunafab_accueil]
+ * CSS requis : index.css puis saunafab-accueil.css (Apparence > Personnaliser > CSS additionnel).
+ */
+defined('ABSPATH') || exit;
+
+add_shortcode('saunafab_accueil', function () {
+    // 01 — CONFIGURATION : remplacer les photos par leurs URL de médiathèque si souhaité.
+    $photos = array(
+        'sauna' => 'https://saunafab.ca/wp-content/uploads/2024/10/d239b23a-7283-4b18-a750-0395cc0d02a1-768x1024.jpg',
+        'douche' => 'https://saunafab.ca/wp-content/uploads/2024/10/36943217-e72b-4595-80da-ba508f57cfcc-768x1024.jpg',
+    );
+    $links = array(
+        'baril' => home_url('/product/sauna-baril-82-pouces-4-places/'),
+        'cube' => home_url('/product/nos-saunas-cube/'),
+        'bain' => home_url('/product/bain-froid/'),
+        'douche' => home_url('/douches/'),
+        'foyer' => home_url('/foyers-et-porte-buches/'),
+    );
+    ob_start();
+    ?>
+    <div class="sf-home">
+        <!-- 02 — INTRODUCTION -->
+        <section class="sf-hero" aria-label="Bienvenue chez SaunaFab">
+            <img class="sf-hero__image" src="<?php echo esc_url($photos['sauna']); ?>" alt="Sauna baril en cèdre avec porche et banc" fetchpriority="high" decoding="async">
+            <div class="sf-wrap sf-hero__content">
+                <p class="sf-eyebrow">Un espace pour vous</p>
+                <h1>La chaleur de la nature,<br>chez vous.</h1>
+                <p class="sf-lead">Des saunas fabriqués au Québec, personnalisables pour donner vie à votre espace de détente.</p>
+                <div class="sf-actions">
+                    <a class="sf-button" href="<?php echo esc_url($links['baril']); ?>">Découvrir les saunas <span aria-hidden="true">→</span></a>
+                    <a class="sf-button sf-button--outline" href="mailto:saunafab@gmail.com">Parlons de votre projet</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03 — POINTS FORTS -->
+        <div class="sf-promises">
+            <ul class="sf-wrap"><li>Fabrication québécoise</li><li>Cèdre massif de 1½ po</li><li>Sauna garanti 3 ans</li><li>Plancher doublé inclus</li></ul>
+        </div>
+
+        <!-- 04 — SAUNAS -->
+        <section class="sf-section sf-wrap">
+            <p class="sf-eyebrow">Nos saunas</p>
+            <h2>Votre pause commence ici.</h2>
+            <div class="sf-models">
+                <a class="sf-model sf-model--photo" href="<?php echo esc_url($links['baril']); ?>">
+                    <img src="<?php echo esc_url($photos['sauna']); ?>" alt="Sauna baril SaunaFab" loading="lazy" decoding="async">
+                    <div><h3>Sauna baril</h3><p>Le charme du cèdre, tout en rondeur.</p><span class="sf-link">Découvrir le modèle <span aria-hidden="true">↗</span></span></div>
+                </a>
+                <a class="sf-model sf-model--blue" href="<?php echo esc_url($links['cube']); ?>">
+                    <div><p class="sf-eyebrow">Une autre façon de se détendre</p><h3>Sauna cube</h3><p>Un format compact et deux hauteurs de bancs pour trouver votre place.</p><span class="sf-link">Découvrir le modèle <span aria-hidden="true">↗</span></span></div>
+                </a>
+            </div>
+            <p class="sf-note">Garantie du sauna : 3 ans. Garantie du foyer : 1 an, offerte par le manufacturier.</p>
+        </section>
+
+        <!-- 05 — PERSONNALISATION -->
+        <section class="sf-custom">
+            <div class="sf-wrap sf-split">
+                <div><p class="sf-eyebrow">À votre image</p><h2>Un projet qui prend<br>le temps de vous écouter.</h2></div>
+                <div><p>Du premier choix aux derniers détails, discutons de votre espace et de vos envies. Nos produits sont personnalisables.</p><a class="sf-button" href="mailto:saunafab@gmail.com">Créer mon projet <span aria-hidden="true">→</span></a></div>
+            </div>
+        </section>
+
+        <!-- 06 — BAINS FROIDS -->
+        <section class="sf-section sf-wrap sf-split">
+            <div class="sf-cold"><span aria-hidden="true">02—15 °C</span><p>Changez de rythme.</p></div>
+            <div><p class="sf-eyebrow">Bains froids</p><h2>Une touche de fraîcheur.</h2><p>Découvrez les bains froids SaunaFab et imaginez la suite de votre espace extérieur.</p><a class="sf-button sf-button--dark" href="<?php echo esc_url($links['bain']); ?>">Voir les bains froids <span aria-hidden="true">→</span></a></div>
+        </section>
+
+        <!-- 07 — DOUCHES -->
+        <section class="sf-section sf-wrap sf-split sf-showers">
+            <div><p class="sf-eyebrow">Douches extérieures</p><h2>Le ciel pour horizon.<br>Le cèdre autour de vous.</h2><p>Des douches en cèdre massif de 1½ po, fabriquées par des artisans québécois. Choisissez un plafond ouvert ou fermé pour aménager votre coin de plein air.</p><a class="sf-button sf-button--dark" href="<?php echo esc_url($links['douche']); ?>">Explorer les douches <span aria-hidden="true">→</span></a></div>
+            <img class="sf-rounded-image" src="<?php echo esc_url($photos['douche']); ?>" alt="Douche extérieure en cèdre SaunaFab" loading="lazy" decoding="async">
+        </section>
+
+        <!-- 08 — FOYERS -->
+        <section class="sf-heaters"><div class="sf-wrap sf-split"><div><p class="sf-eyebrow">Au cœur du sauna</p><h2>À chacun sa chaleur.</h2></div><div><p>Au bois ou électrique : découvrez les foyers proposés pour différentes grandeurs de saunas.</p><a class="sf-button sf-button--outline" href="<?php echo esc_url($links['foyer']); ?>">Comparer les foyers <span aria-hidden="true">→</span></a></div></div></section>
+
+        <!-- 09 — SERVICE ET CONTACT -->
+        <section class="sf-section sf-wrap sf-contact">
+            <p class="sf-eyebrow">Nous joindre</p><h2>Et si on parlait<br>de votre futur sauna ?</h2>
+            <p>Thomas Desjardins vous accompagne dans votre projet.</p>
+            <div class="sf-actions"><a class="sf-button" href="tel:+18193145586">819 314-5586</a><a class="sf-text-link" href="mailto:saunafab@gmail.com">saunafab@gmail.com</a></div>
+            <address>250 route 139, porte 3, local 5<br>Acton Vale, Québec, J0H 1A0</address>
+            <p class="sf-note">Visites sur rendez-vous.</p>
+        </section>
+    </div>
+    <?php
+    return ob_get_clean();
+});

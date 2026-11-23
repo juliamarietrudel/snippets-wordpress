@@ -1,0 +1,33 @@
+/* SaunaFab — shared colors, fonts, and layout settings.
+   Load once, before the component stylesheets. */
+:root {
+  --sf-blue: #224767;
+  --sf-cream: #f3eee4;
+  --sf-accent: #B94F2F;
+  --sf-white: #FAF8F3;
+  --sf-black: #000000;
+  --sf-serif: "Cormorant Garamond", Georgia, serif;
+  --sf-sans: "Inter", Arial, sans-serif;
+  --sf-width: 1180px;
+  --sf-radius: 20px;
+  --sf-section-padding: 80px;
+  --sf-header-width: 1440px;
+  --sf-header-padding: 12px 4%;
+  --sf-header-mobile-padding: 12px 5%;
+  --sf-header-gap: 30px;
+  --sf-nav-gap: 22px;
+  --sf-logo-size: 80px;
+  --sf-logo-mobile-size: 64px;
+  --sf-navy: var(--sf-blue);
+  --sf-navy-light: #2d5c80;
+  --sf-copper: var(--sf-accent);
+  --sf-copper-hover: #983f25;
+  --sf-wood: #76503b;
+  --sf-ivory: var(--sf-white);
+  --sf-muted: #535b61;
+  --sfh-blue: var(--sf-blue);
+  --sfh-cream: var(--sf-cream);
+  --sfh-accent: var(--sf-accent);
+  --sfh-font: var(--sf-sans);
+}
+

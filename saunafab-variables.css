@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
+
+/* Shared palette, typography and layout values for the modular snippets. */
+:root {
+    --sf-blue: #16354B;
+    --sf-blue-deep: var(--sf-blue);
+    --sf-cream: #f3eee4;
+    --sf-accent: var(--sf-blue);
+    --sf-yellow: #ECD8A9;
+    --sf-white: #FAF8F3;
+    --sf-black: #000000;
+    --sf-ink: #201d1a;
+    --sf-muted: #786f66;
+    --sf-max-width: 1180px;
+    --sf-font-body: "DM Sans", Arial, sans-serif;
+    --sf-font-heading: "Playfair Display", Georgia, serif;
+    --sf-font-brand: "Allura", cursive;
+    --sf-width: var(--sf-max-width);
+    --sf-radius: 20px;
+    --sf-section-padding: 80px;
+    --sf-serif: var(--sf-font-heading);
+    --sf-sans: var(--sf-font-body);
+    --sf-contact-max-width: 1440px;
+    --sf-header-max-width: 1440px;
+
+    /* Shared header roles, also used by the standalone header stylesheet. */
+    --sfh-blue: var(--sf-blue-deep);
+    --sfh-cream: var(--sf-white);
+    --sfh-accent: var(--sf-yellow);
+    --sfh-font: var(--sf-font-body);
+}

@@ -1,0 +1,160 @@
+/* Load saunafab-variables.css first for the shared web fonts. */
+
+.sf-contact-page,
+.sf-contact-content {
+    --sf-contact-blue: var(--sf-blue-deep, #16354b);
+    --sf-contact-gold: var(--sf-yellow, #ecd8a9);
+    --sf-contact-white: var(--sf-white, #faf8f3);
+    --sf-contact-ink: var(--sf-ink, #201d1a);
+    --sf-contact-serif: var(--sf-font-heading, 'Playfair Display', Georgia, serif);
+    --sf-contact-sans: var(--sf-font-body, 'DM Sans', Arial, sans-serif);
+    color: var(--sf-contact-white);
+    font-family: var(--sf-contact-sans);
+    line-height: 1.6;
+}
+
+.sf-contact-content:not(.sf-contact-page.e-con *) {
+    padding: clamp(24px, 6vw, 72px);
+    background: var(--sf-contact-blue);
+}
+
+.sf-contact-page.e-con {
+    display: grid;
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+    align-items: start;
+    gap: clamp(36px, 7vw, 100px);
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+    padding-block: clamp(55px, 9vw, 120px);
+    padding-inline: max(clamp(16px, 2.5vw, 32px), calc((100% - var(--sf-contact-max-width, 1440px)) / 2));
+    background: var(--sf-contact-blue);
+}
+
+/* Promote the header and contact details to grid items when Elementor wraps them. */
+.sf-contact-page.e-con > .elementor-widget-shortcode:has(.sf-contact-header),
+.sf-contact-page.e-con > .elementor-widget-shortcode:has(.sf-contact-header) > .elementor-widget-container,
+.sf-contact-page.e-con > .elementor-widget-shortcode:has(.sf-contact-header) .elementor-shortcode {
+    display: contents;
+}
+
+.sf-contact-header {
+    grid-column: 1 / -1;
+    min-width: 0;
+}
+
+.sf-contact-header .sfh {
+    position: relative;
+    z-index: 2;
+    background: var(--sfh-blue, #16354b);
+    color: var(--sfh-cream, #faf8f3);
+}
+
+.sf-contact-page.e-con:has(.sf-contact-header) {
+    padding-block-start: 0;
+}
+
+.sf-contact-page > * { min-width: 0; }
+.sf-contact-content .sf-contact-kicker {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 21px;
+    color: var(--sf-contact-gold);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+}
+.sf-contact-content .sf-contact-kicker::before {
+    content: '';
+    width: 32px;
+    border-top: 1px solid currentColor;
+    opacity: .65;
+}
+.sf-contact-content .sf-contact-title {
+    margin: 0;
+    color: inherit;
+    font: 500 clamp(42px, 5vw, 63px)/1.02 var(--sf-contact-serif);
+    letter-spacing: -.045em;
+}
+.sf-contact-content .sf-contact-intro { max-width: 43ch; margin: 24px 0 30px; }
+.sf-contact-content .sf-contact-details {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    font-size: 15px;
+    font-style: normal;
+}
+.sf-contact-content .sf-contact-details a {
+    width: fit-content;
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    overflow-wrap: anywhere;
+}
+.sf-contact-content .sf-contact-details a:hover { color: var(--sf-contact-gold); }
+.sf-contact-content .sf-contact-details p { margin: 10px 0 0; }
+.sf-contact-content .sf-contact-details .sf-contact-directions { color: var(--sf-contact-gold); }
+
+.sf-contact-page .sf-contact-card {
+    padding: clamp(24px, 4vw, 37px);
+    border-radius: 15px;
+    background: var(--sf-contact-white);
+    color: var(--sf-contact-ink);
+    font-family: var(--sf-contact-sans);
+}
+.sf-contact-page .sf-contact-card .elementor-heading-title {
+    color: var(--sf-contact-blue);
+    font: 500 26px/1.2 var(--sf-contact-serif);
+}
+.sf-contact-page .sf-contact-card .wpr-form-field-label {
+    color: #625950;
+    font: 600 11px/1.4 var(--sf-contact-sans);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+.sf-contact-page .sf-contact-card .wpr-form-field-textual {
+    width: 100%;
+    min-height: 44px;
+    padding: 11px 0;
+    border: 0;
+    border-bottom: 1px solid #a79f94;
+    border-radius: 0;
+    color: var(--sf-contact-ink);
+    background: transparent;
+    font: 400 16px/1.4 var(--sf-contact-sans);
+}
+.sf-contact-page .sf-contact-card textarea.wpr-form-field-textual {
+    min-height: 92px;
+    resize: vertical;
+}
+.sf-contact-page .sf-contact-card .wpr-form-field-type-submit .wpr-button {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 22px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--sf-contact-blue);
+    color: var(--sf-contact-white);
+    font: 600 14px/1.4 var(--sf-contact-sans);
+}
+.sf-contact-page .sf-contact-card .wpr-form-field-type-submit .wpr-button:hover {
+    background: #244d68;
+}
+.sf-contact-content a:focus-visible,
+.sf-contact-page .sf-contact-card :is(input, textarea, button):focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+.sf-contact-page .sf-contact-card button:focus-visible {
+    outline-color: var(--sf-contact-blue);
+}
+@media (max-width: 767px) {
+    .sf-contact-page.e-con { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Masque l’ancien en-tête Royal Addons sur la page Contact. */
+body:has(.sf-contact-content):has(header.sfh) .elementor-element-2fd8c55 {
+    display: none !important;
+}
