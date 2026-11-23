@@ -1,0 +1,56 @@
+[
+  {
+    "title": "SaunaFab — PHP — Bain froid — Bannière",
+    "code": "/** Bain froid section using the Sauna page styles. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_bain_froid_hero', static function () {\n    $photo = home_url('/wp-content/uploads/2026/11/bain-froid-1.png');\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--hero sf-saunas--dark\" aria-label=\"Bain froid SaunaFab\">\n        <img class=\"sf-saunas__cover\" src=\"<?php echo esc_url($photo); ?>\" alt=\"\" fetchpriority=\"high\">\n        <div class=\"sf-width sf-saunas__hero-copy\">\n            <p class=\"sf-kicker sf-kicker-light\">Bain extérieur</p>\n            <h1>Bain froid<br><em>SaunaFab.</em></h1>\n            <p>Un bain d’immersion pour votre espace extérieur, seul ou à côté de votre sauna. Découvrez le modèle et discutez des options avec notre équipe.</p>\n            <div class=\"sf-saunas__actions\">\n                <a class=\"sf-button sf-saunas__primary\" href=\"#sf-bain-froid-achat\">Voir le prix et les options <span aria-hidden=\"true\">↓</span></a>\n                <a class=\"sf-button sf-button-outline\" href=\"<?php echo esc_url(home_url('/elementor-2911/')); ?>\">Parler à l’équipe</a>\n            </div>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section indépendante du produit Bain froid. Utilise le CSS partagé de la page Saunas."
+  },
+  {
+    "title": "SaunaFab — PHP — Bain froid — Modèle",
+    "code": "/** Bain froid section using the Sauna page styles. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_bain_froid_produit', static function () {\n    $photo = home_url('/wp-content/uploads/2026/11/bain-froid-2.png');\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--light\" aria-label=\"Découvrir le bain froid\">\n        <div class=\"sf-width sf-saunas__split\">\n            <div class=\"sf-saunas__heading\">\n                <p class=\"sf-kicker\">Le modèle</p>\n                <h2 class=\"sf-title\">Un bain froid pour votre espace extérieur.</h2>\n                <p>Installez-le près de votre sauna ou aménagez-lui un coin à part. Si les options affichées ne correspondent pas à votre installation, l’équipe peut discuter d’une configuration personnalisée.</p>\n                <a class=\"sf-button sf-button-blue\" href=\"#sf-bain-froid-achat\">Consulter les options du bain <span aria-hidden=\"true\">→</span></a>\n            </div>\n            <div class=\"sf-saunas__model\">\n                <img src=\"<?php echo esc_url($photo); ?>\" alt=\"Bain froid SaunaFab\" loading=\"lazy\" decoding=\"async\">\n            </div>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section indépendante du produit Bain froid. Utilise le CSS partagé de la page Saunas."
+  },
+  {
+    "title": "SaunaFab — PHP — Bain froid — Galerie",
+    "code": "/** Bain froid gallery using the same carousel as the Saunas page. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_bain_froid_galerie', static function () {\n    $media_base = home_url('/wp-content/uploads/2026/11/');\n    $photos = [\n        [$media_base . 'bain-froid-1.png', 'Bain froid SaunaFab, première vue'],\n        [$media_base . 'bain-froid-2.png', 'Bain froid SaunaFab, deuxième vue'],\n        [$media_base . 'bain-froid-3.png', 'Bain froid SaunaFab, troisième vue'],\n    ];\n    $id = wp_unique_id('sf-bain-froid-galerie-');\n\n    ob_start();\n    ?>\n    <section class=\"sf-sauna-gallery\" id=\"<?php echo esc_attr($id); ?>\" aria-label=\"Galerie de bains froids\">\n        <div class=\"sf-sauna-gallery__controls\" hidden>\n            <button type=\"button\" data-step=\"-1\" aria-controls=\"<?php echo esc_attr($id); ?>-photos\" aria-label=\"Photo précédente\"><span aria-hidden=\"true\">←</span></button>\n            <button type=\"button\" data-step=\"1\" aria-controls=\"<?php echo esc_attr($id); ?>-photos\" aria-label=\"Photo suivante\"><span aria-hidden=\"true\">→</span></button>\n        </div>\n        <ul class=\"sf-sauna-gallery__track\" id=\"<?php echo esc_attr($id); ?>-photos\" tabindex=\"0\" aria-label=\"Photos de bains froids\">\n            <?php foreach ($photos as [$photo_url, $description]) : ?>\n                <li><img src=\"<?php echo esc_url($photo_url); ?>\" alt=\"<?php echo esc_attr($description); ?>\" loading=\"lazy\" decoding=\"async\"></li>\n            <?php endforeach; ?>\n        </ul>\n    </section>\n    <script>\n    (() => {\n        const gallery = document.getElementById(<?php echo wp_json_encode($id); ?>);\n        if (!gallery) return;\n\n        const track = gallery.querySelector('.sf-sauna-gallery__track');\n        const controls = gallery.querySelector('.sf-sauna-gallery__controls');\n        const photos = [...track.children];\n        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');\n        let scrollTimer;\n        let currentPhoto = 0;\n\n        // Buffer both ends with decorative copies so wrapping has no visible jump.\n        function copyPhoto(photo) {\n            const copy = photo.cloneNode(true);\n            copy.setAttribute('aria-hidden', 'true');\n            copy.querySelector('img').alt = '';\n            return copy;\n        }\n\n        track.prepend(...photos.map(copyPhoto));\n        track.append(...photos.map(copyPhoto));\n\n        function photoWidth() {\n            return photos[0].getBoundingClientRect().width;\n        }\n\n        function snapToOriginal() {\n            const width = photoWidth();\n            if (!width) return;\n            const index = Math.round(track.scrollLeft / width) - photos.length;\n            currentPhoto = (index % photos.length + photos.length) % photos.length;\n            if (index !== currentPhoto) {\n                track.scrollLeft = (photos.length * photoWidth()) + currentPhoto * width;\n            }\n        }\n\n        track.scrollLeft = (photos.length * photoWidth());\n        track.addEventListener('scroll', () => {\n            clearTimeout(scrollTimer);\n            scrollTimer = setTimeout(snapToOriginal, 140);\n        }, { passive: true });\n        window.addEventListener('resize', () => {\n            track.scrollLeft = (photos.length * photoWidth()) + currentPhoto * photoWidth();\n        });\n\n        controls.addEventListener('click', (event) => {\n            const button = event.target.closest('button[data-step]');\n            if (!button) return;\n\n            const width = photoWidth();\n            if (!width) return;\n            const position = Math.round(track.scrollLeft / width) + Number(button.dataset.step);\n            track.scrollTo({\n                left: position * width,\n                behavior: reducedMotion.matches ? 'instant' : 'smooth',\n            });\n        });\n\n        controls.hidden = false;\n    })();\n    </script>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section indépendante du produit Bain froid. Utilise le CSS partagé de la page Saunas."
+  }
+]

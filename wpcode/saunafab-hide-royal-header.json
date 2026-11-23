@@ -1,0 +1,19 @@
+[
+  {
+    "title": "SaunaFab — Hide Royal Addons Header on Selected Pages",
+    "code": "/**\n * Hide the Royal Addons header on selected WordPress pages.\n * In WPCode, use a PHP snippet with Auto Insert → Run Everywhere.\n */\ndefined('ABSPATH') || exit;\n\n// Add WordPress page IDs here, separated by commas. An empty list hides nothing.\n$saunafab_hide_header_page_ids = [2911];\n\nadd_action('wp_head', static function () use ($saunafab_hide_header_page_ids) {\n    if (!$saunafab_hide_header_page_ids || !is_page($saunafab_hide_header_page_ids)) {\n        return;\n    }\n\n    // Target the Royal Addons container identified in the Elementor markup.\n    echo '<style id=\"saunafab-hide-royal-header\">.elementor-element-2fd8c55 { display: none !important; }</style>' . \"\\n\";\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ]
+  }
+]

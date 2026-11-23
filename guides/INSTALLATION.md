@@ -1,9 +1,11 @@
 # Accueil SaunaFab — design A, bleu nuit
 
+Les chemins de fichiers ci-dessous partent du dossier `snippets-wordpress/`.
+
 ## Installation avec Code Snippets
 
-1. Créer un snippet PHP dans Code Snippets. Copier `saunafab-accueil.php` **sans la première ligne `<?php`**. Activer le snippet sur le site.
-2. Copier `index.css` (variables partagées, une seule fois), puis `saunafab-accueil.css` dans le **CSS additionnel** de WordPress. Ne pas ajouter de balises `<style>`. Pour afficher aussi l’autre composant, ajouter son CSS après `index.css`.
+1. Créer un snippet PHP dans Code Snippets. Copier `php/legacy/saunafab-accueil.php` **sans la première ligne `<?php`**. Activer le snippet sur le site.
+2. Copier `css/legacy/index.css` (variables partagées, une seule fois), puis `css/legacy/saunafab-accueil.css` dans le **CSS additionnel** de WordPress. Ne pas ajouter de balises `<style>`. Pour afficher aussi l’autre composant, ajouter son CSS après `css/legacy/index.css`.
 3. Sur une page de brouillon, ajouter un bloc **Code court / Shortcode** contenant `[saunafab_accueil]`. Dans Elementor, utiliser le widget **Shortcode**.
 4. Choisir un modèle de page pleine largeur et désactiver le titre automatique de cette page. Garder le menu et le pied de page du thème. Ne pas insérer le nouveau shortcode sous l'ancien contenu : il le remplace.
 5. Prévisualiser sur ordinateur et mobile avant de sélectionner la page comme accueil.
@@ -16,7 +18,7 @@ Dans les réglages typographiques du thème ou d'Elementor, charger **Cormorant 
 
 ## Personnalisation
 
-- Couleurs, largeur et polices : variables partagées dans `:root` de `index.css`.
+- Couleurs, largeur et polices : variables partagées dans `:root` de `css/legacy/index.css`.
 - Espacement des sections : **03**.
 - Boutons : **04**.
 - Grande photo et superposition bleu nuit : **05**.
@@ -38,4 +40,4 @@ Les photos utilisent deux URL présentes sur le site actuel. Leur disponibilité
 
 Syntaxe PHP vérifiée localement. Le shortcode a été rendu avec des fonctions WordPress simulées pour contrôler le HTML produit. L'intégration au thème, les photos distantes et le rendu visuel final doivent être vérifiés sur la page de brouillon. Aucun changement n'a été publié sur le site.
 
-Les couleurs, polices et réglages partagés sont dans `index.css`. Les règles des composants restent dans `saunafab-header.css` et `saunafab-accueil.css`. Palette : bleu `#224767`, crème `#f3eee4`, accent `#B94F2F`, beige clair `#FAF8F3`, noir `#000000`.
+Les couleurs, polices et réglages partagés sont dans `css/legacy/index.css`. Les règles des composants restent dans `css/components/saunafab-header.css` et `css/legacy/saunafab-accueil.css`. Palette : bleu `#224767`, crème `#f3eee4`, accent `#B94F2F`, beige clair `#FAF8F3`, noir `#000000`.

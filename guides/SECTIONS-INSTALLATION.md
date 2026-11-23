@@ -1,9 +1,11 @@
 # Composer les pages SaunaFab dans Elementor
 
+Les chemins de fichiers ci-dessous partent du dossier `snippets-wordpress/`.
+
 ## Installer les snippets
 
-1. Dans **Code Snippets**, activer `saunafab-sections.php`, `saunafab-header.php` et `saunafab-contact.php`. Coller chaque fichier sans sa première ligne `<?php`. Si les snippets header et Contact existent déjà, mettre à jour leur contenu.
-2. Dans le **CSS additionnel**, charger `saunafab-variables.css` en premier, puis `saunafab-sections.css`, `saunafab-header.css` et `saunafab-contact.css`. Mettre à jour les blocs header et Contact existants. Le fichier de variables définit la palette, les polices et les largeurs. Les styles des sections sont regroupés par composant.
+1. Dans **Code Snippets**, activer `php/sections/saunafab-sections.php`, `php/components/saunafab-header.php` et `php/sections/saunafab-contact.php`. Coller chaque fichier sans sa première ligne `<?php`. Si les snippets header et Contact existent déjà, mettre à jour leur contenu.
+2. Dans le **CSS additionnel**, charger `css/variables/saunafab-variables.css` en premier, puis `css/components/saunafab-sections.css`, `css/components/saunafab-header.css` et `css/components/saunafab-contact.css`. Mettre à jour les blocs header et Contact existants. Le fichier de variables définit la palette, les polices et les largeurs. Les styles des sections sont regroupés par composant.
 3. Dans Elementor, placer chaque shortcode dans son propre widget **Code court**. Mettre les conteneurs de sections en pleine largeur et régler leur espacement dans Elementor.
 
 ## Accueil

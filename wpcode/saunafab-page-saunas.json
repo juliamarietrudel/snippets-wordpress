@@ -1,0 +1,164 @@
+[
+  {
+    "title": "SaunaFab — CSS — Saunas",
+    "code": "/* Page sections share the typography, buttons and gutters defined for the homepage. */\n.sf-section-block.sf-saunas {\n    padding-block: clamp(52px, 8vw, 104px);\n    line-height: 1.65;\n    scroll-margin-top: 120px;\n}\n\n.sf-section-block.sf-saunas--light { background: var(--sf-white); }\n.sf-section-block.sf-saunas--cream { background: var(--sf-cream); }\n.sf-section-block.sf-saunas--dark { background: var(--sf-blue); color: var(--sf-white); }\n.sf-section-block.sf-saunas--dark .sf-title { color: inherit; }\n\n.sf-saunas .sf-saunas__stack { display: grid; gap: clamp(28px, 5vw, 52px); }\n.sf-saunas .sf-saunas__heading { max-width: 660px; }\n.sf-saunas .sf-saunas__heading > p:last-child { margin-bottom: 0; }\n.sf-saunas .sf-title + p { margin-top: 18px; max-width: 54ch; }\n.sf-saunas .sf-saunas__heading > .sf-button { margin-top: 12px; }\n\n.sf-section-block.sf-saunas--hero {\n    position: relative;\n    display: grid;\n    align-items: center;\n    min-height: clamp(480px, 65vw, 650px);\n    isolation: isolate;\n}\n\n.sf-saunas .sf-saunas__cover {\n    position: absolute;\n    inset: 0;\n    z-index: -2;\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n    object-position: 62% 50%;\n}\n\n.sf-saunas--hero::before {\n    position: absolute;\n    inset: 0;\n    z-index: -1;\n    background: linear-gradient(90deg, rgba(13, 31, 44, .93), rgba(13, 31, 44, .73) 47%, rgba(13, 31, 44, .22));\n    content: '';\n}\n\n.sf-saunas .sf-saunas__hero-copy h1 {\n    margin-bottom: 24px;\n    color: inherit;\n    font: 500 clamp(47px, 8vw, 94px)/.98 var(--sf-font-heading);\n    letter-spacing: -.045em;\n}\n\n.sf-saunas .sf-saunas__hero-copy > p:not(.sf-kicker) { max-width: 45ch; margin-bottom: 28px; }\n\n.sf-saunas .sf-saunas__actions { display: flex; flex-wrap: wrap; gap: 12px; }\n.sf-section-block .sf-saunas__primary,\n.sf-section-block .sf-saunas__primary:hover {\n    background: var(--sf-yellow);\n    color: var(--sf-blue);\n}\n\n.sf-saunas .sf-saunas__models,\n.sf-saunas .sf-saunas__split {\n    display: grid;\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n    gap: clamp(22px, 4vw, 52px);\n}\n\n.sf-saunas .sf-saunas__model {\n    display: flex;\n    flex-direction: column;\n    overflow: hidden;\n    border: 1px solid rgba(32, 29, 26, .14);\n    border-radius: var(--sf-radius);\n    background: var(--sf-cream);\n}\n\n.sf-saunas .sf-saunas__model img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }\n.sf-saunas .sf-saunas__card-body { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: clamp(22px, 4vw, 36px); }\n.sf-saunas .sf-saunas__card-body .sf-button { margin-top: auto; }\n.sf-saunas h3 { margin: 0 0 8px; color: inherit; font: 500 clamp(22px, 3vw, 32px)/1.15 var(--sf-font-heading); }\n\n/* Reuse homepage benefit cards with three columns for this section. */\n.sf-saunas .sf-benefit-grid.sf-saunas__benefits {\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n}\n\n.sf-saunas .sf-saunas__benefits .sf-benefit p { max-width: 32ch; }\n\n@media (max-width: 900px) {\n    .sf-saunas .sf-benefit-grid.sf-saunas__benefits { grid-template-columns: 1fr; row-gap: 0; }\n    .sf-saunas .sf-saunas__benefits .sf-benefit {\n        flex-direction: row;\n        align-items: center;\n        padding: 24px 0;\n        border-right: 0;\n        border-bottom: 1px solid rgba(250, 248, 243, .16);\n    }\n    .sf-saunas .sf-saunas__benefits .sf-benefit:first-child { padding-top: 0; }\n    .sf-saunas .sf-saunas__benefits .sf-benefit:last-child { padding-bottom: 0; border-bottom: 0; }\n    .sf-saunas .sf-saunas__benefits .sf-benefit-icon { flex-shrink: 0; }\n    .sf-saunas .sf-saunas__benefits .sf-benefit p { max-width: none; }\n}\n\n.sf-saunas .sf-saunas__steps { margin: 0; padding-inline-start: 1.6em; }\n.sf-saunas .sf-saunas__steps li + li { margin-top: 18px; }\n.sf-saunas .sf-saunas__steps li::marker {\n    color: inherit;\n    font: 500 clamp(22px, 3vw, 32px)/1.15 var(--sf-font-heading);\n}\n\n.sf-saunas .sf-saunas__faq details { border-block-start: 1px solid rgba(32, 29, 26, .2); }\n.sf-saunas .sf-saunas__faq details:last-child { border-block-end: 1px solid rgba(32, 29, 26, .2); }\n.sf-saunas .sf-saunas__faq summary {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    gap: 12px;\n    padding-block: 15px;\n    color: var(--sf-blue);\n    cursor: pointer;\n    font-weight: 600;\n    list-style: none;\n}\n\n.sf-saunas .sf-saunas__faq summary::-webkit-details-marker { display: none; }\n.sf-saunas .sf-saunas__faq summary::after {\n    width: 9px;\n    height: 9px;\n    margin-inline-end: 4px;\n    border-inline-end: 2px solid currentColor;\n    border-block-end: 2px solid currentColor;\n    transform: rotate(45deg);\n    content: '';\n}\n.sf-saunas .sf-saunas__faq details[open] summary::after { transform: rotate(225deg); }\n.sf-saunas .sf-saunas__faq summary:focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }\n.sf-saunas .sf-saunas__faq p { margin: 0 0 18px; }\n.sf-saunas--cta .sf-saunas__split { align-items: center; }\n.sf-saunas--cta .sf-saunas__actions { justify-content: flex-end; }\n\n@media (max-width: 740px) {\n    .sf-saunas .sf-saunas__models, .sf-saunas .sf-saunas__split { grid-template-columns: 1fr; }\n    .sf-saunas--hero::before { background: linear-gradient(90deg, rgba(13, 31, 44, .88), rgba(13, 31, 44, .56)); }\n    .sf-saunas--cta .sf-saunas__actions { justify-content: flex-start; }\n}\n",
+    "code_type": "css",
+    "location": "site_wide_header",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 15,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Styles des sections de la page Saunas."
+  },
+  {
+    "title": "SaunaFab — PHP — Saunas — Bannière",
+    "code": "/** Standalone Saunas section for Elementor. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_saunas_hero', static function () {\n    // Use the homepage hero photo from the Media Library on WordPress.\n    $image = defined('SAUNAFAB_LOCAL_PREVIEW') && SAUNAFAB_LOCAL_PREVIEW\n        ? '/snippets-wordpress/images/sauna-square-edited.png'\n        : home_url('/wp-content/uploads/2026/10/sauna-square-edited.png');\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--hero sf-saunas--dark\" aria-label=\"Saunas extérieurs SaunaFab\">\n        <img class=\"sf-saunas__cover\" src=\"<?php echo esc_url($image); ?>\" alt=\"\" fetchpriority=\"high\">\n        <div class=\"sf-width sf-saunas__hero-copy\">\n            <p class=\"sf-kicker sf-kicker-light\">Fabriqués au Québec</p>\n            <h1>Saunas extérieurs<br><em>en cèdre.</em></h1>\n            <p>Baril ou cube, trouvez un sauna qui convient à votre espace. Notre équipe vous accompagne du choix du modèle à l’installation.</p>\n            <div class=\"sf-saunas__actions\">\n                <a class=\"sf-button sf-saunas__primary\" href=\"<?php echo esc_url('#sf-saunas-modeles'); ?>\">Comparer les modèles <span aria-hidden=\"true\">↓</span></a>\n                <a class=\"sf-button sf-button-outline\" href=\"<?php echo esc_url(home_url('/elementor-2911/')); ?>\">Parler à l’équipe</a>\n            </div>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section de la page Saunas."
+  },
+  {
+    "title": "SaunaFab — PHP — Saunas — Modèles",
+    "code": "/** Standalone Saunas section for Elementor. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_saunas_modeles', static function () {\n    $media_base = defined('SAUNAFAB_LOCAL_PREVIEW') && SAUNAFAB_LOCAL_PREVIEW\n        ? '/snippets-wordpress/images/'\n        : home_url('/wp-content/uploads/2026/10/');\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--light\" id=\"sf-saunas-modeles\" aria-label=\"Comparer les saunas\">\n        <div class=\"sf-width sf-saunas__stack\">\n            <div class=\"sf-saunas__heading\">\n                <p class=\"sf-kicker\">Les modèles</p>\n                <h2 class=\"sf-title\">Sauna baril ou sauna cube?</h2>\n                <p>Comparez leur forme et leur aménagement avant d’explorer les options.</p>\n            </div>\n            <div class=\"sf-saunas__models\">\n                <article class=\"sf-saunas__model\">\n                    <img src=\"<?php echo esc_url($media_base . 'sauna-baril-edited.png'); ?>\" alt=\"Sauna baril SaunaFab\" loading=\"lazy\">\n                    <div class=\"sf-saunas__card-body\">\n                        <h3>Sauna baril</h3>\n                        <p>Sa forme arrondie réduit le volume à chauffer. Son format compact facilite la livraison préassemblée lorsque l’accès le permet.</p>\n                        <a class=\"sf-button sf-button-blue\" href=\"<?php echo esc_url(home_url('/product/sauna-baril-82-pouces-4-places/')); ?>\">Voir les saunas baril <span aria-hidden=\"true\">→</span></a>\n                    </div>\n                </article>\n                <article class=\"sf-saunas__model\">\n                    <img src=\"<?php echo esc_url($media_base . 'sauna-cube-2-edited.png'); ?>\" alt=\"Sauna cube SaunaFab\" loading=\"lazy\">\n                    <div class=\"sf-saunas__card-body\">\n                        <h3>Sauna cube</h3>\n                        <p>Des lignes droites et un format compact. Ses deux hauteurs de banc permettent de choisir où s’asseoir selon la chaleur recherchée.</p>\n                        <a class=\"sf-button sf-button-blue\" href=\"<?php echo esc_url(home_url('/product/nos-saunas-cube/')); ?>\">Voir les saunas cube <span aria-hidden=\"true\">→</span></a>\n                    </div>\n                </article>\n            </div>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section de la page Saunas."
+  },
+  {
+    "title": "SaunaFab — PHP — Saunas — Engagements",
+    "code": "/** Standalone Saunas section for Elementor. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_saunas_engagements', static function () {\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--dark\" aria-label=\"Fabrication, garantie et service\">\n        <div class=\"sf-width sf-saunas__stack\">\n            <div class=\"sf-saunas__heading\">\n                <p class=\"sf-kicker sf-kicker-light\">Pourquoi SaunaFab</p>\n                <h2 class=\"sf-title\">Fabrication, garantie et service</h2>\n            </div>\n            <div class=\"sf-benefit-grid sf-saunas__benefits\">\n                <article class=\"sf-benefit\">\n                    <span class=\"sf-benefit-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m5 12 7-7 7 7M7 11v9h10v-9M10 20v-6h4v6M12 2v2M3 6l2 2m16-2-2 2\"/></svg></span>\n                    <div><h3>Fabrication québécoise</h3><p>Matériaux québécois, bois séché au séchoir, vitrage trempé et plancher à double base.</p></div>\n                </article>\n                <article class=\"sf-benefit\">\n                    <span class=\"sf-benefit-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6Z\"/><path d=\"m8 12 3 3 5-6\"/></svg></span>\n                    <div><h3>Garanties</h3><p>Le sauna est garanti trois ans. Le foyer est couvert un an par son fabricant.</p></div>\n                </article>\n                <article class=\"sf-benefit\">\n                    <span class=\"sf-benefit-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 6h11v12H3Zm11 5h4l3 4v3h-7M3 10H1m2 4H1\"/><circle cx=\"7\" cy=\"18\" r=\"2\"/><circle cx=\"18\" cy=\"18\" r=\"2\"/></svg></span>\n                    <div><h3>Livraison et soutien</h3><p>Choisissez une livraison préassemblée, un assemblage sur place ou un ensemble à monter. L’équipe offre aussi du soutien technique.</p></div>\n                </article>\n            </div>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section de la page Saunas."
+  },
+  {
+    "title": "SaunaFab — PHP — Saunas — Installation",
+    "code": "/** Standalone Saunas section for Elementor. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_saunas_installation', static function () {\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--cream\" id=\"sf-saunas-installation\" aria-label=\"Préparer l’installation\">\n        <div class=\"sf-width sf-saunas__split\">\n            <div class=\"sf-saunas__heading\">\n                <p class=\"sf-kicker\">Avant la livraison</p>\n                <h2 class=\"sf-title\">Préparer l’emplacement</h2>\n                <p>Avant de commander, prenez quelques photos de l’emplacement et du trajet depuis la rue. Elles aideront l’équipe à valider l’accès et la livraison.</p>\n                <a class=\"sf-button sf-button-blue\" href=\"<?php echo esc_url(home_url('/elementor-2911/')); ?>\">Valider mon emplacement <span aria-hidden=\"true\">→</span></a>\n            </div>\n            <ol class=\"sf-saunas__steps\">\n                <li><h3>Choisir une base stable</h3><p>Une dalle de béton, des pavés, une terrasse adaptée ou un lit de pierre peuvent convenir. Vérifiez que la base est de niveau et adaptée au modèle.</p></li>\n                <li><h3>Mesurer le passage</h3><p>Pour un sauna baril livré préassemblé, prévoyez un dégagement d’environ 6 pi à confirmer avec l’équipe. Mesurez le point le plus étroit, incluant les portails et les virages.</p></li>\n                <li><h3>Confirmer le mode de livraison</h3><p>Si l’accès est restreint, demandez si l’assemblage sur place ou la livraison en kit convient à votre projet.</p></li>\n            </ol>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section de la page Saunas."
+  },
+  {
+    "title": "SaunaFab — PHP — Saunas — FAQ",
+    "code": "/** Standalone Saunas section for Elementor. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_saunas_faq', static function () {\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--light\" aria-label=\"Questions fréquentes sur les saunas\">\n        <div class=\"sf-width sf-saunas__split\">\n            <div class=\"sf-saunas__heading\">\n                <p class=\"sf-kicker\">Questions fréquentes</p>\n                <h2 class=\"sf-title\">Avant de choisir</h2>\n            </div>\n            <div class=\"sf-saunas__faq\">\n                <details><summary>Puis-je personnaliser mon sauna?</summary><p>Oui. Si vous ne trouvez pas la configuration souhaitée sur la fiche du modèle, communiquez avec l’équipe pour discuter des options.</p></details>\n                <details><summary>Des dalles individuelles peuvent-elles servir de base?</summary><p>Pour certains modèles, des dalles de 16 po ou de 24 po placées sous les appuis peuvent convenir. Faites confirmer leur nombre et leur disposition pour votre modèle et votre terrain.</p></details>\n                <details><summary>Quel foyer choisir?</summary><p>Discutez des options au bois et électriques avec l’équipe. L’emplacement, l’accès à l’électricité et les exigences d’installation peuvent orienter votre choix.</p></details>\n                <details><summary>Puis-je voir un sauna avant de commander?</summary><p>Les visites à Acton Vale se font sur rendez-vous. Communiquez avec l’équipe pour connaître les modèles disponibles à voir.</p></details>\n            </div>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section de la page Saunas."
+  },
+  {
+    "title": "SaunaFab — PHP — Saunas — Contact",
+    "code": "/** Standalone Saunas section for Elementor. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_saunas_cta', static function () {\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--dark sf-saunas--cta\" aria-label=\"Parler de votre projet sauna\">\n        <div class=\"sf-width sf-saunas__split\">\n            <div class=\"sf-saunas__heading\">\n                <p class=\"sf-kicker sf-kicker-light\">Votre projet</p>\n                <h2 class=\"sf-title\">Parlons de votre sauna.</h2>\n                <p>Indiquez-nous votre modèle préféré, votre ville et les dimensions de l’espace. Nous pourrons vous guider sur la configuration et la livraison.</p>\n            </div>\n            <div class=\"sf-saunas__actions\">\n                <a class=\"sf-button sf-saunas__primary\" href=\"<?php echo esc_url(home_url('/elementor-2911/')); ?>\">Discuter de mon projet <span aria-hidden=\"true\">→</span></a>\n                <a class=\"sf-button sf-button-outline\" href=\"tel:+18193145586\">Appeler le 819 314-5586</a>\n            </div>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section de la page Saunas."
+  },
+  {
+    "title": "SaunaFab — CSS — Saunas — Galerie",
+    "code": "/* The arrows overlay the images, keeping the strip edge to edge. */\n.sf-sauna-gallery { position: relative; }\n\n.sf-sauna-gallery .sf-sauna-gallery__controls[hidden] { display: none; }\n.sf-sauna-gallery .sf-sauna-gallery__controls button {\n    position: absolute;\n    inset-block: 0;\n    z-index: 1;\n    display: flex;\n    align-items: center;\n    width: clamp(48px, 9vw, 144px);\n    height: 100%;\n    padding: 0 clamp(12px, 2.5vw, 32px);\n    border: 0;\n    border-radius: 0;\n    background: transparent;\n    color: var(--sf-white, #faf8f3);\n    font: 400 clamp(24px, 3vw, 38px)/1 var(--sf-font-body, Arial, sans-serif);\n    cursor: pointer;\n}\n\n.sf-sauna-gallery .sf-sauna-gallery__controls button[data-step=\"-1\"] {\n    --sf-gallery-fade-direction: to right;\n    left: 0;\n    justify-content: flex-start;\n}\n\n.sf-sauna-gallery .sf-sauna-gallery__controls button[data-step=\"1\"] {\n    --sf-gallery-fade-direction: to left;\n    right: 0;\n    justify-content: flex-end;\n}\n\n.sf-sauna-gallery .sf-sauna-gallery__controls button:hover {\n    background: transparent;\n    color: var(--sf-white, #faf8f3);\n}\n\n.sf-sauna-gallery .sf-sauna-gallery__controls button::before {\n    position: absolute;\n    inset: 0;\n    background: linear-gradient(var(--sf-gallery-fade-direction), rgba(7, 18, 27, .88), transparent);\n    opacity: .82;\n    pointer-events: none;\n    transition: opacity 700ms ease-in-out;\n    content: '';\n}\n\n.sf-sauna-gallery .sf-sauna-gallery__controls button span { position: relative; }\n.sf-sauna-gallery .sf-sauna-gallery__controls button:hover::before { opacity: 1; }\n\n@media (prefers-reduced-motion: reduce) {\n    .sf-sauna-gallery .sf-sauna-gallery__controls button::before { transition: none; }\n}\n\n.sf-sauna-gallery :focus-visible { outline: 2px solid var(--sf-yellow, #ecd8a9); outline-offset: -2px; }\n.sf-sauna-gallery .sf-sauna-gallery__track {\n    display: grid;\n    grid-auto-flow: column;\n    grid-auto-columns: calc(100% / 3);\n    gap: 0;\n    width: 100%;\n    margin: 0;\n    padding: 0;\n    overflow-x: auto;\n    overscroll-behavior-inline: contain;\n    scroll-snap-type: x mandatory;\n    scrollbar-width: none;\n    list-style: none;\n}\n\n.sf-sauna-gallery .sf-sauna-gallery__track::-webkit-scrollbar { display: none; }\n.sf-sauna-gallery .sf-sauna-gallery__track li {\n    min-width: 0;\n    margin: 0;\n    padding: 0;\n    scroll-snap-align: start;\n}\n\n.sf-sauna-gallery .sf-sauna-gallery__track img {\n    display: block;\n    width: 100%;\n    aspect-ratio: 4 / 3;\n    object-fit: cover;\n}\n\n@media (max-width: 740px) {\n    .sf-sauna-gallery .sf-sauna-gallery__track { grid-auto-columns: 100%; }\n}\n",
+    "code_type": "css",
+    "location": "site_wide_header",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 15,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Carrousel de la page Saunas."
+  },
+  {
+    "title": "SaunaFab — PHP — Saunas — Galerie",
+    "code": "/** Standalone, full-width photo gallery for the Saunas page. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_saunas_galerie', static function () {\n    $media_base = defined('SAUNAFAB_LOCAL_PREVIEW') && SAUNAFAB_LOCAL_PREVIEW\n        ? '/snippets-wordpress/images/'\n        : home_url('/wp-content/uploads/2026/10/');\n\n    $photos = [\n        'sauna-square-edited.png' => 'Sauna SaunaFab en extérieur',\n        'sauna-baril-edited.png' => 'Sauna baril SaunaFab',\n        'sauna-cube-2-edited.png' => 'Sauna cube SaunaFab',\n        'saunas-baril-et-bains-edited.png' => 'Saunas baril et bains froids SaunaFab',\n    ];\n    $id = wp_unique_id('sf-saunas-galerie-');\n\n    ob_start();\n    ?>\n    <section class=\"sf-sauna-gallery\" id=\"<?php echo esc_attr($id); ?>\" aria-label=\"Galerie de saunas\">\n        <div class=\"sf-sauna-gallery__controls\" hidden>\n            <button type=\"button\" data-step=\"-1\" aria-controls=\"<?php echo esc_attr($id); ?>-photos\" aria-label=\"Photo précédente\"><span aria-hidden=\"true\">←</span></button>\n            <button type=\"button\" data-step=\"1\" aria-controls=\"<?php echo esc_attr($id); ?>-photos\" aria-label=\"Photo suivante\"><span aria-hidden=\"true\">→</span></button>\n        </div>\n        <ul class=\"sf-sauna-gallery__track\" id=\"<?php echo esc_attr($id); ?>-photos\" tabindex=\"0\" aria-label=\"Photos de saunas\">\n            <?php foreach ($photos as $filename => $description) : ?>\n                <li><img src=\"<?php echo esc_url($media_base . $filename); ?>\" alt=\"<?php echo esc_attr($description); ?>\" loading=\"lazy\" decoding=\"async\"></li>\n            <?php endforeach; ?>\n        </ul>\n    </section>\n    <script>\n    (() => {\n        const gallery = document.getElementById(<?php echo wp_json_encode($id); ?>);\n        if (!gallery) return;\n\n        const track = gallery.querySelector('.sf-sauna-gallery__track');\n        const controls = gallery.querySelector('.sf-sauna-gallery__controls');\n        const photos = [...track.children];\n        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');\n        let scrollTimer;\n        let currentPhoto = 0;\n\n        // Buffer both ends with decorative copies so wrapping has no visible jump.\n        function copyPhoto(photo) {\n            const copy = photo.cloneNode(true);\n            copy.setAttribute('aria-hidden', 'true');\n            copy.querySelector('img').alt = '';\n            return copy;\n        }\n\n        track.prepend(...photos.map(copyPhoto));\n        track.append(...photos.map(copyPhoto));\n\n        function photoWidth() {\n            return photos[0].getBoundingClientRect().width;\n        }\n\n        function snapToOriginal() {\n            const width = photoWidth();\n            if (!width) return;\n            const index = Math.round(track.scrollLeft / width) - photos.length;\n            currentPhoto = (index % photos.length + photos.length) % photos.length;\n            if (index !== currentPhoto) {\n                track.scrollLeft = (photos.length * photoWidth()) + currentPhoto * width;\n            }\n        }\n\n        track.scrollLeft = (photos.length * photoWidth());\n        track.addEventListener('scroll', () => {\n            clearTimeout(scrollTimer);\n            scrollTimer = setTimeout(snapToOriginal, 140);\n        }, { passive: true });\n        window.addEventListener('resize', () => {\n            track.scrollLeft = (photos.length * photoWidth()) + currentPhoto * photoWidth();\n        });\n\n        controls.addEventListener('click', (event) => {\n            const button = event.target.closest('button[data-step]');\n            if (!button) return;\n\n            const width = photoWidth();\n            if (!width) return;\n            const position = Math.round(track.scrollLeft / width) + Number(button.dataset.step);\n            track.scrollTo({\n                left: position * width,\n                behavior: reducedMotion.matches ? 'instant' : 'smooth',\n            });\n        });\n\n        controls.hidden = false;\n    })();\n    </script>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Carrousel de la page Saunas."
+  }
+]

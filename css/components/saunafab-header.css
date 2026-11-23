@@ -1,0 +1,147 @@
+/* Header layout, navigation and responsive menu. */
+.sfh {
+  position: relative;
+  z-index: 2;
+  background: var(--sfh-blue, #16354b);
+  color: var(--sfh-cream, #faf8f3);
+  border-bottom: 1px solid rgba(236, 216, 169, .24);
+  font-family: var(--sfh-font, Arial, sans-serif);
+}
+
+/* Elementor wrappers must stick at page level so their child can scroll with them. */
+body > .sfh,
+.sf-sticky-header:has(.sfh):not(.elementor-location-header *),
+.elementor-location-header:has(.sfh),
+.elementor > .e-con:has(> .elementor-widget-shortcode:only-child .sfh):not(.elementor-location-header *, .sf-sticky-header *) {
+  position: sticky;
+  top: var(--wp-admin--admin-bar--height, 0px);
+  z-index: 100;
+}
+
+/* WordPress scrolls its admin bar away on narrow screens. */
+@media (max-width: 600px) {
+  body > .sfh,
+  .sf-sticky-header:has(.sfh):not(.elementor-location-header *),
+  .elementor-location-header:has(.sfh),
+  .elementor > .e-con:has(> .elementor-widget-shortcode:only-child .sfh):not(.elementor-location-header *, .sf-sticky-header *) {
+    top: 0;
+  }
+}
+
+.sfh *, .sfh *::before, .sfh *::after { box-sizing: border-box; }
+.sfh [hidden] { display: none !important; }
+.sfh a { color: inherit; text-decoration: none; }
+
+.sfh .sfh__inner {
+  width: var(--sf-aligned-width, min(1180px, calc(100% - 2 * clamp(19px, 5vw, 32px))));
+  margin-inline: auto;
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px 28px;
+}
+
+.sfh .sfh__brand {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(10px, 2vw, 17px);
+}
+
+.sfh .sfh__brand img {
+  display: block;
+  width: clamp(48px, 5vw, 64px);
+  height: clamp(48px, 5vw, 64px);
+  object-fit: contain;
+}
+
+.sfh .sfh__wordmark {
+  color: var(--sfh-cream, #faf8f3);
+  font: 400 clamp(32px, 4vw, 48px)/1 var(--sf-font-brand, Georgia, serif);
+  white-space: nowrap;
+}
+
+.sfh .sfh__nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(16px, 3vw, 36px);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.sfh .sfh__nav-link, .sfh summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding-block: 8px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.sfh .sfh__nav-link:hover, .sfh summary:hover, .sfh details[open] > summary {
+  color: var(--sfh-accent, #ecd8a9);
+}
+
+.sfh summary { list-style: none; }
+.sfh summary::-webkit-details-marker { display: none; }
+.sfh details[open] > summary > span { transform: rotate(180deg); }
+.sfh .sfh__dropdown { position: relative; margin: 0; padding: 0; }
+
+.sfh .sfh__submenu {
+  position: absolute;
+  inset: 100% 0 auto auto;
+  min-width: 210px;
+  margin: 0;
+  padding: 8px;
+  border: 1px solid rgba(236, 216, 169, .24);
+  border-radius: 12px;
+  background: var(--sfh-blue, #16354b);
+  box-shadow: 0 16px 30px rgba(8, 24, 36, .3);
+}
+
+.sfh .sfh__submenu li { margin: 0; padding: 0; list-style: none; }
+.sfh .sfh__submenu a { display: block; padding: 10px 13px; border-radius: 6px; }
+.sfh .sfh__submenu a:hover { background: #ffffff12; color: var(--sfh-accent, #ecd8a9); }
+
+.sfh .sfh__cart, .sfh .sfh__toggle {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid rgba(236, 216, 169, .34);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.sfh .sfh__cart svg { display: block; width: 21px; height: 21px; }
+.sfh .sfh__toggle { padding: 8px 14px; font-size: 14px; }
+.sfh .sfh__cart:hover, .sfh .sfh__toggle:hover { background: #ffffff12; }
+.sfh :focus-visible { outline: 2px solid var(--sfh-accent, #ecd8a9); outline-offset: 4px; }
+
+/* Match the breakpoint in the header's menu script. */
+@media (max-width: 860px) {
+  .sfh .sfh__inner { flex-wrap: wrap; }
+  .sfh .sfh__nav {
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    max-height: 65dvh;
+    overflow-y: auto;
+    gap: 2px;
+    padding: 8px 0;
+    border-top: 1px solid rgba(236, 216, 169, .24);
+  }
+  .sfh .sfh__nav-link, .sfh summary { justify-content: space-between; padding-inline: 4px; }
+  .sfh .sfh__submenu { position: static; min-width: 0; margin-bottom: 8px; box-shadow: none; }
+  .sfh .sfh__cart { align-self: flex-start; margin-top: 8px; }
+}

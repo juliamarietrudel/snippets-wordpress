@@ -20,7 +20,7 @@
 .sf-section-block h2,
 .sf-section-block h3,
 .sf-section-block p { margin-top: 0; }
-.sf-section-block .sf-width { width: min(var(--sf-max-width), calc(100% - 64px)); margin-inline: auto; }
+.sf-section-block .sf-width { width: var(--sf-aligned-width); margin-inline: auto; }
 .sf-section-block [id] { scroll-margin-top: 96px; }
 .sf-section-block .sf-clip-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 
@@ -204,7 +204,6 @@
 }
 
 @media (max-width: 620px) {
-    .sf-section-block .sf-width { width: calc(100% - 38px); }
     .sf-section-block .sf-brand img { width: 42px; height: 42px; }
     .sf-section-block .sf-brand span { font-size: 23px; }
     .sf-section-block .sf-hero { min-height: 680px; align-items: flex-end; padding-bottom: 66px; }

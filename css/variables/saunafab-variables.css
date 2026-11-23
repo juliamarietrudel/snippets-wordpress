@@ -21,11 +21,16 @@
     --sf-serif: var(--sf-font-heading);
     --sf-sans: var(--sf-font-body);
     --sf-contact-max-width: 1440px;
-    --sf-header-max-width: 1440px;
+    --sf-side-gutter: 32px;
+    --sf-aligned-width: min(var(--sf-max-width), calc(100% - 2 * var(--sf-side-gutter)));
 
     /* Shared header roles, also used by the standalone header stylesheet. */
     --sfh-blue: var(--sf-blue-deep);
     --sfh-cream: var(--sf-white);
     --sfh-accent: var(--sf-yellow);
     --sfh-font: var(--sf-font-body);
+}
+
+@media (max-width: 620px) {
+    :root { --sf-side-gutter: 19px; }
 }

@@ -1,0 +1,38 @@
+[
+  {
+    "title": "SaunaFab — CSS — Saunas — Galerie",
+    "code": "/* The arrows overlay the images, keeping the strip edge to edge. */\n.sf-sauna-gallery { position: relative; }\n\n.sf-sauna-gallery .sf-sauna-gallery__controls[hidden] { display: none; }\n.sf-sauna-gallery .sf-sauna-gallery__controls button {\n    position: absolute;\n    inset-block: 0;\n    z-index: 1;\n    display: flex;\n    align-items: center;\n    width: clamp(48px, 9vw, 144px);\n    height: 100%;\n    padding: 0 clamp(12px, 2.5vw, 32px);\n    border: 0;\n    border-radius: 0;\n    background: transparent;\n    color: var(--sf-white, #faf8f3);\n    font: 400 clamp(24px, 3vw, 38px)/1 var(--sf-font-body, Arial, sans-serif);\n    cursor: pointer;\n}\n\n.sf-sauna-gallery .sf-sauna-gallery__controls button[data-step=\"-1\"] {\n    --sf-gallery-fade-direction: to right;\n    left: 0;\n    justify-content: flex-start;\n}\n\n.sf-sauna-gallery .sf-sauna-gallery__controls button[data-step=\"1\"] {\n    --sf-gallery-fade-direction: to left;\n    right: 0;\n    justify-content: flex-end;\n}\n\n.sf-sauna-gallery .sf-sauna-gallery__controls button:hover {\n    background: transparent;\n    color: var(--sf-white, #faf8f3);\n}\n\n.sf-sauna-gallery .sf-sauna-gallery__controls button::before {\n    position: absolute;\n    inset: 0;\n    background: linear-gradient(var(--sf-gallery-fade-direction), rgba(7, 18, 27, .88), transparent);\n    opacity: .82;\n    pointer-events: none;\n    transition: opacity 700ms ease-in-out;\n    content: '';\n}\n\n.sf-sauna-gallery .sf-sauna-gallery__controls button span { position: relative; }\n.sf-sauna-gallery .sf-sauna-gallery__controls button:hover::before { opacity: 1; }\n\n@media (prefers-reduced-motion: reduce) {\n    .sf-sauna-gallery .sf-sauna-gallery__controls button::before { transition: none; }\n}\n\n.sf-sauna-gallery :focus-visible { outline: 2px solid var(--sf-yellow, #ecd8a9); outline-offset: -2px; }\n.sf-sauna-gallery .sf-sauna-gallery__track {\n    display: grid;\n    grid-auto-flow: column;\n    grid-auto-columns: calc(100% / 3);\n    gap: 0;\n    width: 100%;\n    margin: 0;\n    padding: 0;\n    overflow-x: auto;\n    overscroll-behavior-inline: contain;\n    scroll-snap-type: x mandatory;\n    scrollbar-width: none;\n    list-style: none;\n}\n\n.sf-sauna-gallery .sf-sauna-gallery__track::-webkit-scrollbar { display: none; }\n.sf-sauna-gallery .sf-sauna-gallery__track li {\n    min-width: 0;\n    margin: 0;\n    padding: 0;\n    scroll-snap-align: start;\n}\n\n.sf-sauna-gallery .sf-sauna-gallery__track img {\n    display: block;\n    width: 100%;\n    aspect-ratio: 4 / 3;\n    object-fit: cover;\n}\n\n@media (max-width: 740px) {\n    .sf-sauna-gallery .sf-sauna-gallery__track { grid-auto-columns: 100%; }\n}\n",
+    "code_type": "css",
+    "location": "site_wide_header",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 15,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Carrousel de la page Saunas."
+  },
+  {
+    "title": "SaunaFab — PHP — Saunas — Galerie",
+    "code": "/** Standalone, full-width photo gallery for the Saunas page. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_saunas_galerie', static function () {\n    $media_base = defined('SAUNAFAB_LOCAL_PREVIEW') && SAUNAFAB_LOCAL_PREVIEW\n        ? '/snippets-wordpress/images/'\n        : home_url('/wp-content/uploads/2026/10/');\n\n    $photos = [\n        'sauna-square-edited.png' => 'Sauna SaunaFab en extérieur',\n        'sauna-baril-edited.png' => 'Sauna baril SaunaFab',\n        'sauna-cube-2-edited.png' => 'Sauna cube SaunaFab',\n        'saunas-baril-et-bains-edited.png' => 'Saunas baril et bains froids SaunaFab',\n    ];\n    $id = wp_unique_id('sf-saunas-galerie-');\n\n    ob_start();\n    ?>\n    <section class=\"sf-sauna-gallery\" id=\"<?php echo esc_attr($id); ?>\" aria-label=\"Galerie de saunas\">\n        <div class=\"sf-sauna-gallery__controls\" hidden>\n            <button type=\"button\" data-step=\"-1\" aria-controls=\"<?php echo esc_attr($id); ?>-photos\" aria-label=\"Photo précédente\"><span aria-hidden=\"true\">←</span></button>\n            <button type=\"button\" data-step=\"1\" aria-controls=\"<?php echo esc_attr($id); ?>-photos\" aria-label=\"Photo suivante\"><span aria-hidden=\"true\">→</span></button>\n        </div>\n        <ul class=\"sf-sauna-gallery__track\" id=\"<?php echo esc_attr($id); ?>-photos\" tabindex=\"0\" aria-label=\"Photos de saunas\">\n            <?php foreach ($photos as $filename => $description) : ?>\n                <li><img src=\"<?php echo esc_url($media_base . $filename); ?>\" alt=\"<?php echo esc_attr($description); ?>\" loading=\"lazy\" decoding=\"async\"></li>\n            <?php endforeach; ?>\n        </ul>\n    </section>\n    <script>\n    (() => {\n        const gallery = document.getElementById(<?php echo wp_json_encode($id); ?>);\n        if (!gallery) return;\n\n        const track = gallery.querySelector('.sf-sauna-gallery__track');\n        const controls = gallery.querySelector('.sf-sauna-gallery__controls');\n        const photos = [...track.children];\n        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');\n        let scrollTimer;\n        let currentPhoto = 0;\n\n        // Buffer both ends with decorative copies so wrapping has no visible jump.\n        function copyPhoto(photo) {\n            const copy = photo.cloneNode(true);\n            copy.setAttribute('aria-hidden', 'true');\n            copy.querySelector('img').alt = '';\n            return copy;\n        }\n\n        track.prepend(...photos.map(copyPhoto));\n        track.append(...photos.map(copyPhoto));\n\n        function photoWidth() {\n            return photos[0].getBoundingClientRect().width;\n        }\n\n        function snapToOriginal() {\n            const width = photoWidth();\n            if (!width) return;\n            const index = Math.round(track.scrollLeft / width) - photos.length;\n            currentPhoto = (index % photos.length + photos.length) % photos.length;\n            if (index !== currentPhoto) {\n                track.scrollLeft = (photos.length * photoWidth()) + currentPhoto * width;\n            }\n        }\n\n        track.scrollLeft = (photos.length * photoWidth());\n        track.addEventListener('scroll', () => {\n            clearTimeout(scrollTimer);\n            scrollTimer = setTimeout(snapToOriginal, 140);\n        }, { passive: true });\n        window.addEventListener('resize', () => {\n            track.scrollLeft = (photos.length * photoWidth()) + currentPhoto * photoWidth();\n        });\n\n        controls.addEventListener('click', (event) => {\n            const button = event.target.closest('button[data-step]');\n            if (!button) return;\n\n            const width = photoWidth();\n            if (!width) return;\n            const position = Math.round(track.scrollLeft / width) + Number(button.dataset.step);\n            track.scrollTo({\n                left: position * width,\n                behavior: reducedMotion.matches ? 'instant' : 'smooth',\n            });\n        });\n\n        controls.hidden = false;\n    })();\n    </script>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Carrousel de la page Saunas."
+  }
+]

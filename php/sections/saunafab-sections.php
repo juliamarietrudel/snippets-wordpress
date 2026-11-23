@@ -174,13 +174,10 @@ add_shortcode('saunafab_appel_contact', static function () {
 });
 
 add_shortcode('saunafab_footer', static function () {
-    $images = [
-        'logo' => 'https://saunafab.ca/wp-content/uploads/2024/07/logo-saunafab.png',
-    ];
     ob_start();
     ?>
     <div class="sf-section-block">
-        <footer class="sf-footer"><div class="sf-width sf-footer-top"><a class="sf-brand" href="<?php echo esc_url(home_url('/')); ?>"><img src="<?php echo esc_url($images['logo']); ?>" alt=""><span>SaunaFab</span></a><p>La chaleur de la nature,<br><em>chez vous.</em></p><div class="sf-footer-links"><a href="<?php echo esc_url(is_front_page() ? '#sf-modeles' : home_url('/#sf-modeles')); ?>">Saunas</a><a href="<?php echo esc_url(is_front_page() ? '#sf-univers' : home_url('/#sf-univers')); ?>">Bains froids</a><a href="<?php echo esc_url(is_front_page() ? '#sf-contact' : home_url('/#sf-contact')); ?>">Nous joindre</a></div></div><div class="sf-width sf-footer-bottom"><span>© <?php echo esc_html(date('Y')); ?> SaunaFab.</span><span>Saunas non échangeables et non remboursables.</span><a href="https://saunafab.ca/en/">English ↗</a></div></footer>
+        <footer class="sf-footer"><div class="sf-width sf-footer-top"><a class="sf-brand" href="<?php echo esc_url(home_url('/')); ?>"><span>SaunaFab</span></a><p>La chaleur de la nature,<br><em>chez vous.</em></p><div class="sf-footer-links"><a href="<?php echo esc_url(is_front_page() ? '#sf-modeles' : home_url('/#sf-modeles')); ?>">Saunas</a><a href="<?php echo esc_url(is_front_page() ? '#sf-univers' : home_url('/#sf-univers')); ?>">Bains froids</a><a href="<?php echo esc_url(is_front_page() ? '#sf-contact' : home_url('/#sf-contact')); ?>">Nous joindre</a></div></div><div class="sf-width sf-footer-bottom"><span>© <?php echo esc_html(date('Y')); ?> SaunaFab.</span><span>Saunas non échangeables et non remboursables.</span><a href="https://saunafab.ca/en/">English ↗</a></div></footer>
     </div>
     <?php
     return ob_get_clean();

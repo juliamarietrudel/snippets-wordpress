@@ -1,0 +1,89 @@
+/* The arrows overlay the images, keeping the strip edge to edge. */
+.sf-sauna-gallery { position: relative; }
+
+.sf-sauna-gallery .sf-sauna-gallery__controls[hidden] { display: none; }
+.sf-sauna-gallery .sf-sauna-gallery__controls button {
+    position: absolute;
+    inset-block: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    width: clamp(48px, 9vw, 144px);
+    height: 100%;
+    padding: 0 clamp(12px, 2.5vw, 32px);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--sf-white, #faf8f3);
+    font: 400 clamp(24px, 3vw, 38px)/1 var(--sf-font-body, Arial, sans-serif);
+    cursor: pointer;
+}
+
+.sf-sauna-gallery .sf-sauna-gallery__controls button[data-step="-1"] {
+    --sf-gallery-fade-direction: to right;
+    left: 0;
+    justify-content: flex-start;
+}
+
+.sf-sauna-gallery .sf-sauna-gallery__controls button[data-step="1"] {
+    --sf-gallery-fade-direction: to left;
+    right: 0;
+    justify-content: flex-end;
+}
+
+.sf-sauna-gallery .sf-sauna-gallery__controls button:hover {
+    background: transparent;
+    color: var(--sf-white, #faf8f3);
+}
+
+.sf-sauna-gallery .sf-sauna-gallery__controls button::before {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(var(--sf-gallery-fade-direction), rgba(7, 18, 27, .88), transparent);
+    opacity: .82;
+    pointer-events: none;
+    transition: opacity 700ms ease-in-out;
+    content: '';
+}
+
+.sf-sauna-gallery .sf-sauna-gallery__controls button span { position: relative; }
+.sf-sauna-gallery .sf-sauna-gallery__controls button:hover::before { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+    .sf-sauna-gallery .sf-sauna-gallery__controls button::before { transition: none; }
+}
+
+.sf-sauna-gallery :focus-visible { outline: 2px solid var(--sf-yellow, #ecd8a9); outline-offset: -2px; }
+.sf-sauna-gallery .sf-sauna-gallery__track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc(100% / 3);
+    gap: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    list-style: none;
+}
+
+.sf-sauna-gallery .sf-sauna-gallery__track::-webkit-scrollbar { display: none; }
+.sf-sauna-gallery .sf-sauna-gallery__track li {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    scroll-snap-align: start;
+}
+
+.sf-sauna-gallery .sf-sauna-gallery__track img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+@media (max-width: 740px) {
+    .sf-sauna-gallery .sf-sauna-gallery__track { grid-auto-columns: 100%; }
+}

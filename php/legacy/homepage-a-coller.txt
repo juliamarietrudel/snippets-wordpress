@@ -15,7 +15,7 @@ if (!function_exists('saunafab_homepage_shortcode')) {
         static $assets_printed = false;
 
         $images = [
-            'logo' => 'https://saunafab.ca/wp-content/uploads/2024/07/logo-saunafab.png',
+            'logo' => 'https://saunafab.ca/wp-content/uploads/2024/07/cropped-logo-saunafab.png',
             'hero' => defined('SAUNAFAB_LOCAL_PREVIEW') && SAUNAFAB_LOCAL_PREVIEW
                 ? '/snippets-wordpress/images/sauna-square-edited.png'
                 : 'https://saunafab.ca/wp-content/uploads/2026/10/sauna-square-edited.png',

@@ -13,7 +13,7 @@ add_shortcode('saunafab_produits', function () {
             'foyer' => 'foyers.png',
         );
         foreach ($preview_images as $key => $filename) {
-            if (is_file(__DIR__ . '/images/edited/' . $filename)) {
+            if (is_file(dirname(__DIR__, 2) . '/images/edited/' . $filename)) {
                 $images[$key] = '../snippets-wordpress/images/edited/' . $filename;
             }
         }
