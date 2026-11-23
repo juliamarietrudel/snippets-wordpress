@@ -1,0 +1,128 @@
+[
+  {
+    "title": "SaunaFab — PHP — Douches — Bannière",
+    "code": "/** Douches section using the Sauna page styles. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_douches_hero', static function () {\n    $photo = home_url('/wp-content/uploads/2026/11/douche-1.png');\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--hero sf-saunas--dark\" aria-label=\"Douches extérieures SaunaFab\">\n        <img class=\"sf-saunas__cover\" src=\"<?php echo esc_url($photo); ?>\" alt=\"\" fetchpriority=\"high\">\n        <div class=\"sf-width sf-saunas__hero-copy\">\n            <p class=\"sf-kicker sf-kicker-light\">Fabriquées au Québec</p>\n            <h1>Douches extérieures<br><em>en cèdre.</em></h1>\n            <p>Une douche en plein air, près du sauna ou sur la terrasse. Choisissez un plafond ouvert ou fermé et les finitions qui conviennent à votre espace.</p>\n            <div class=\"sf-saunas__actions\">\n                <a class=\"sf-button sf-saunas__primary\" href=\"<?php echo esc_url(home_url('/product/douche/')); ?>\">Voir la fiche produit <span aria-hidden=\"true\">→</span></a>\n                <a class=\"sf-button sf-button-outline\" href=\"<?php echo esc_url(home_url('/elementor-2911/')); ?>\">Parler à l’équipe</a>\n            </div>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section indépendante de la page Douches. Utilise les styles partagés de Saunas."
+  },
+  {
+    "title": "SaunaFab — PHP — Douches — Modèle",
+    "code": "/** Douches section using the Sauna page styles. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_douches_produit', static function () {\n    $photo = home_url('/wp-content/uploads/2026/11/douche-2.png');\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--light\" aria-label=\"Découvrir la douche extérieure\">\n        <div class=\"sf-width sf-saunas__split\">\n            <div class=\"sf-saunas__heading\">\n                <p class=\"sf-kicker\">Le modèle</p>\n                <h2 class=\"sf-title\">Une douche à ciel ouvert ou à l’abri des regards.</h2>\n                <p>Avec 7 pi de hauteur et 42 po de diamètre, la douche laisse de la place pour bouger. Le plafond ouvert donne sur le ciel, tandis que le plafond fermé offre plus d’intimité. La plomberie est vendue séparément.</p>\n                <a class=\"sf-button sf-button-blue\" href=\"<?php echo esc_url(home_url('/product/douche/')); ?>\">Voir les options de la douche <span aria-hidden=\"true\">→</span></a>\n            </div>\n            <div class=\"sf-saunas__model\">\n                <img src=\"<?php echo esc_url($photo); ?>\" alt=\"Douche extérieure SaunaFab\" loading=\"lazy\" decoding=\"async\">\n            </div>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section indépendante de la page Douches. Utilise les styles partagés de Saunas."
+  },
+  {
+    "title": "SaunaFab — PHP — Douches — Engagements",
+    "code": "/** Douches section using the shared benefit cards. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_douches_engagements', static function () {\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--dark\" aria-label=\"Fabrication, personnalisation et plomberie\">\n        <div class=\"sf-width sf-saunas__stack\">\n            <div class=\"sf-saunas__heading\">\n                <p class=\"sf-kicker sf-kicker-light\">Pourquoi SaunaFab</p>\n                <h2 class=\"sf-title\">Fabrication, personnalisation et plomberie</h2>\n            </div>\n            <div class=\"sf-benefit-grid sf-saunas__benefits\">\n                <article class=\"sf-benefit\">\n                    <span class=\"sf-benefit-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m5 12 7-7 7 7M7 11v9h10v-9M10 20v-6h4v6M12 2v2M3 6l2 2m16-2-2 2\"/></svg></span>\n                    <div><h3>Fabriquée au Québec</h3><p>Des artisans d’ici façonnent le cèdre, un bois choisi pour sa résistance à l’humidité.</p></div>\n                </article>\n                <article class=\"sf-benefit\">\n                    <span class=\"sf-benefit-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 20V4h16v16Z\"/><path d=\"M8 16l8-8m-3 0h3v3M8 13v3h3\"/></svg></span>\n                    <div><h3>Finitions à choisir</h3><p>Choisissez le type de plafond, les finitions et les accessoires adaptés à votre aménagement.</p></div>\n                </article>\n                <article class=\"sf-benefit\">\n                    <span class=\"sf-benefit-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 6h11v12H3Zm11 5h4l3 4v3h-7M3 10H1m2 4H1\"/><circle cx=\"7\" cy=\"18\" r=\"2\"/><circle cx=\"18\" cy=\"18\" r=\"2\"/></svg></span>\n                    <div><h3>Plomberie séparée</h3><p>La plomberie est vendue à part pour vous laisser choisir l’équipement qui convient à votre installation.</p></div>\n                </article>\n            </div>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section indépendante de la page Douches. Utilise les styles partagés de Saunas."
+  },
+  {
+    "title": "SaunaFab — PHP — Douches — Installation",
+    "code": "/** Douches section using the Sauna page styles. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_douches_installation', static function () {\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--cream\" aria-label=\"Préparer l’installation de la douche\">\n        <div class=\"sf-width sf-saunas__split\">\n            <div class=\"sf-saunas__heading\">\n                <p class=\"sf-kicker\">Avant la livraison</p>\n                <h2 class=\"sf-title\">Préparer l’emplacement</h2>\n                <p>Des photos et des mesures de l’espace aideront l’équipe à discuter de l’installation avec vous.</p>\n                <a class=\"sf-button sf-button-blue\" href=\"<?php echo esc_url(home_url('/elementor-2911/')); ?>\">Valider mon emplacement <span aria-hidden=\"true\">→</span></a>\n            </div>\n            <ol class=\"sf-saunas__steps\">\n                <li><h3>Choisir la base</h3><p>Identifiez une surface stable et de niveau. Faites valider l’espace nécessaire autour de la douche.</p></li>\n                <li><h3>Mesurer le passage</h3><p>Notez la largeur du portail, les marches et les virages sur le trajet entre la rue et l’emplacement.</p></li>\n                <li><h3>Prévoir l’arrivée d’eau et l’évacuation</h3><p>Repérez l’arrivée d’eau et l’endroit où elle s’écoulera. Demandez à l’équipe de confirmer les besoins de votre configuration.</p></li>\n            </ol>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section indépendante de la page Douches. Utilise les styles partagés de Saunas."
+  },
+  {
+    "title": "SaunaFab — PHP — Douches — Galerie",
+    "code": "/** Douches gallery using the same carousel as the Saunas page. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_douches_galerie', static function () {\n    $media_base = home_url('/wp-content/uploads/2026/');\n    $photos = [\n        [$media_base . '11/douche-1.png', 'Douche extérieure SaunaFab, première vue'],\n        [$media_base . '11/douche-2.png', 'Douche extérieure SaunaFab, deuxième vue'],\n        [$media_base . '10/sauna-square-edited.png', 'Sauna SaunaFab en extérieur'],\n    ];\n    $id = wp_unique_id('sf-douches-galerie-');\n\n    ob_start();\n    ?>\n    <section class=\"sf-sauna-gallery\" id=\"<?php echo esc_attr($id); ?>\" aria-label=\"Galerie de douches extérieures\">\n        <div class=\"sf-sauna-gallery__controls\" hidden>\n            <button type=\"button\" data-step=\"-1\" aria-controls=\"<?php echo esc_attr($id); ?>-photos\" aria-label=\"Photo précédente\"><span aria-hidden=\"true\">←</span></button>\n            <button type=\"button\" data-step=\"1\" aria-controls=\"<?php echo esc_attr($id); ?>-photos\" aria-label=\"Photo suivante\"><span aria-hidden=\"true\">→</span></button>\n        </div>\n        <ul class=\"sf-sauna-gallery__track\" id=\"<?php echo esc_attr($id); ?>-photos\" tabindex=\"0\" aria-label=\"Photos de douches et de saunas\">\n            <?php foreach ($photos as [$photo_url, $description]) : ?>\n                <li><img src=\"<?php echo esc_url($photo_url); ?>\" alt=\"<?php echo esc_attr($description); ?>\" loading=\"lazy\" decoding=\"async\"></li>\n            <?php endforeach; ?>\n        </ul>\n    </section>\n    <script>\n    (() => {\n        const gallery = document.getElementById(<?php echo wp_json_encode($id); ?>);\n        if (!gallery) return;\n\n        const track = gallery.querySelector('.sf-sauna-gallery__track');\n        const controls = gallery.querySelector('.sf-sauna-gallery__controls');\n        const photos = [...track.children];\n        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');\n        let scrollTimer;\n        let currentPhoto = 0;\n\n        // Buffer both ends with decorative copies so wrapping has no visible jump.\n        function copyPhoto(photo) {\n            const copy = photo.cloneNode(true);\n            copy.setAttribute('aria-hidden', 'true');\n            copy.querySelector('img').alt = '';\n            return copy;\n        }\n\n        track.prepend(...photos.map(copyPhoto));\n        track.append(...photos.map(copyPhoto));\n\n        function photoWidth() {\n            return photos[0].getBoundingClientRect().width;\n        }\n\n        function snapToOriginal() {\n            const width = photoWidth();\n            if (!width) return;\n            const index = Math.round(track.scrollLeft / width) - photos.length;\n            currentPhoto = (index % photos.length + photos.length) % photos.length;\n            if (index !== currentPhoto) {\n                track.scrollLeft = (photos.length * photoWidth()) + currentPhoto * width;\n            }\n        }\n\n        track.scrollLeft = (photos.length * photoWidth());\n        track.addEventListener('scroll', () => {\n            clearTimeout(scrollTimer);\n            scrollTimer = setTimeout(snapToOriginal, 140);\n        }, { passive: true });\n        window.addEventListener('resize', () => {\n            track.scrollLeft = (photos.length * photoWidth()) + currentPhoto * photoWidth();\n        });\n\n        controls.addEventListener('click', (event) => {\n            const button = event.target.closest('button[data-step]');\n            if (!button) return;\n\n            const width = photoWidth();\n            if (!width) return;\n            const position = Math.round(track.scrollLeft / width) + Number(button.dataset.step);\n            track.scrollTo({\n                left: position * width,\n                behavior: reducedMotion.matches ? 'instant' : 'smooth',\n            });\n        });\n\n        controls.hidden = false;\n    })();\n    </script>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section indépendante de la page Douches. Utilise les styles partagés de Saunas."
+  },
+  {
+    "title": "SaunaFab — PHP — Douches — FAQ",
+    "code": "/** Douches section using the Sauna page styles. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_douches_faq', static function () {\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--light\" aria-label=\"Questions fréquentes sur les douches extérieures\">\n        <div class=\"sf-width sf-saunas__split\">\n            <div class=\"sf-saunas__heading\">\n                <p class=\"sf-kicker\">Questions fréquentes</p>\n                <h2 class=\"sf-title\">Avant de commander</h2>\n            </div>\n            <div class=\"sf-saunas__faq\">\n                <details><summary>Puis-je personnaliser ma douche?</summary><p>Oui. Vous pouvez discuter du type de plafond, des finitions et des accessoires avec l’équipe.</p></details>\n                <details><summary>Comment choisir son emplacement?</summary><p>Prévoyez une base stable, un accès pour la livraison, une arrivée d’eau et un endroit où l’eau pourra s’écouler.</p></details>\n                <details><summary>La plomberie est-elle incluse?</summary><p>La plomberie est vendue séparément. Confirmez les raccords et accessoires nécessaires pour votre installation.</p></details>\n            </div>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section indépendante de la page Douches. Utilise les styles partagés de Saunas."
+  },
+  {
+    "title": "SaunaFab — PHP — Douches — Contact",
+    "code": "/** Douches section using the Sauna page styles. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_douches_cta', static function () {\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--dark sf-saunas--cta\" aria-label=\"Commander la douche ou nous joindre\">\n        <div class=\"sf-width sf-saunas__split\">\n            <div class=\"sf-saunas__heading\">\n                <p class=\"sf-kicker sf-kicker-light\">Votre projet</p>\n                <h2 class=\"sf-title\">Parlons de votre douche extérieure.</h2>\n                <p>Consultez le modèle ou indiquez-nous où vous souhaitez l’installer et le type de plafond que vous préférez.</p>\n            </div>\n            <div class=\"sf-saunas__actions\">\n                <a class=\"sf-button sf-saunas__primary\" href=\"<?php echo esc_url(home_url('/product/douche/')); ?>\">Voir la fiche produit <span aria-hidden=\"true\">→</span></a>\n                <a class=\"sf-button sf-button-outline\" href=\"<?php echo esc_url(home_url('/elementor-2911/')); ?>\">Discuter de mon projet</a>\n            </div>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section indépendante de la page Douches. Utilise les styles partagés de Saunas."
+  }
+]
