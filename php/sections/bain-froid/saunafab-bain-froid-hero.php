@@ -13,7 +13,7 @@ add_shortcode('saunafab_bain_froid_hero', static function () {
             <h1>Bain froid<br><em>SaunaFab.</em></h1>
             <p>Un bain d’immersion pour votre espace extérieur, seul ou à côté de votre sauna. Découvrez le modèle et discutez des options avec notre équipe.</p>
             <div class="sf-saunas__actions">
-                <a class="sf-button sf-saunas__primary" href="#sf-bain-froid-achat">Voir le prix et les options <span aria-hidden="true">↓</span></a>
+                <a class="sf-button sf-saunas__primary" href="<?php echo esc_url(home_url('/product/bain-froid-copie-2/')); ?>">Voir le prix et les options <span aria-hidden="true">↓</span></a>
                 <a class="sf-button sf-button-outline" href="<?php echo esc_url(home_url('/elementor-2911/')); ?>">Parler à l’équipe</a>
             </div>
         </div>

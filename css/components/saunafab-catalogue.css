@@ -1,0 +1,9 @@
+/* Catalog blocks use the Sauna page components and shared inline gutters. */
+.sf-saunas .sf-catalogue__heading { max-width: none; }
+.sf-catalogue__heading .sf-saunas__actions { margin-top: 24px; }
+.sf-saunas .sf-catalogue__cards .sf-catalogue__photo {
+    object-fit: contain;
+    padding: clamp(12px, 3vw, 24px);
+    background: var(--sf-white);
+}
+#sf-produit-achat { scroll-margin-top: 120px; }

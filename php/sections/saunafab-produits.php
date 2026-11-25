@@ -20,7 +20,7 @@ add_shortcode('saunafab_produits', function () {
     }
     $products = array(
         array('Saunas', 'Découvrez les modèles et imaginez votre espace de détente.', '/about-us/', '01', 'sauna'),
-        array('Bains froids', 'Explorez une autre façon de compléter votre rituel.', '/product/bain-froid/', '02', 'bain'),
+        array('Bains froids', 'Explorez une autre façon de compléter votre rituel.', '/product/bain-froid-copie-2/', '02', 'bain'),
         array('Douches', 'Découvrez nos douches pour votre espace extérieur.', '/douches/', '03', 'douche'),
         array('Foyers', 'Explorez les options de chauffage pour votre sauna.', '/foyers-et-porte-buches/', '04', 'foyer'),
     );

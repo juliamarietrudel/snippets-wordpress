@@ -1,0 +1,20 @@
+[
+  {
+    "title": "SaunaFab — JS — Options du panier",
+    "code": "(() => {\n    const cartSelector = '.sf-panier-v2, #sf-panier-v2';\n    const nameSelector = '.woocommerce-cart-form__contents td.product-name';\n    const processed = 'sf-cart-product-ready';\n\n    function addDisclosures(cart) {\n        for (const cell of cart.querySelectorAll(nameSelector)) {\n            if (cell.classList.contains(processed)) continue;\n\n            const metadata = cell.querySelector('dl.variation, ul.wc-item-meta, .wcpa_cart_meta');\n            const subtotalCell = cell.closest('tr')?.querySelector(':scope > td.product-subtotal');\n            const hasSubtotal = Boolean(subtotalCell?.textContent.trim());\n            if (!metadata && !hasSubtotal) continue;\n\n            const productLink = cell.querySelector(':scope > a[href]');\n            // Royal Addons can print the product name as plain text for a hidden product.\n            const nameNodes = [];\n            if (!productLink) {\n                for (const node of cell.childNodes) {\n                    if (node === metadata || (metadata && node.contains(metadata))) break;\n                    if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {\n                        nameNodes.push(node);\n                    }\n                }\n            }\n\n            const name = (productLink?.textContent || nameNodes.map((node) => node.textContent.trim()).join(' ')).trim();\n            if (!name) continue;\n\n            // Use native details so the product name works as a keyboard-accessible toggle.\n            const disclosure = document.createElement('details');\n            disclosure.className = 'sf-cart-product-options';\n            const summary = document.createElement('summary');\n            summary.textContent = name;\n            cell.classList.add(processed);\n            (productLink || nameNodes[0]).before(disclosure);\n            disclosure.append(summary);\n            if (metadata) disclosure.append(metadata);\n\n            if (hasSubtotal) {\n                // Move the formatted price, including currency and tax markup, into the disclosure.\n                const subtotal = document.createElement('div');\n                subtotal.className = 'sf-cart-product-subtotal';\n                const label = document.createElement('span');\n                label.textContent = subtotalCell.dataset.title || 'Sous-total';\n                const amount = document.createElement('span');\n                amount.append(...subtotalCell.childNodes);\n                subtotal.append(label, amount);\n                disclosure.append(subtotal);\n                subtotalCell.hidden = true;\n            }\n\n            if (productLink) {\n                disclosure.append(productLink);\n                productLink.textContent = 'Voir la fiche produit';\n                productLink.classList.add('sf-cart-product-link');\n            } else {\n                for (const node of nameNodes) node.remove();\n            }\n        }\n    }\n\n    function init() {\n        for (const cart of document.querySelectorAll(cartSelector)) {\n            if (cart.parentElement?.closest(cartSelector)) continue;\n\n            addDisclosures(cart);\n            // WooCommerce can replace the cart table after a quantity update.\n            const observer = new MutationObserver(() => addDisclosures(cart));\n            observer.observe(cart, { childList: true, subtree: true });\n        }\n    }\n\n    if (document.readyState === 'loading') {\n        document.addEventListener('DOMContentLoaded', init, { once: true });\n    } else {\n        init();\n    }\n})();\n",
+    "code_type": "js",
+    "location": "site_wide_footer",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 20,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Affiche les options choisies dans un volet repliable sur le panier V2."
+  }
+]

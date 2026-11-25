@@ -21,7 +21,7 @@ add_shortcode('saunafab_saunas_modeles', static function () {
                     <div class="sf-saunas__card-body">
                         <h3>Sauna baril</h3>
                         <p>Sa forme arrondie réduit le volume à chauffer. Son format compact facilite la livraison préassemblée lorsque l’accès le permet.</p>
-                        <a class="sf-button sf-button-blue" href="<?php echo esc_url(home_url('/product/sauna-baril-82-pouces-4-places/')); ?>">Voir les saunas baril <span aria-hidden="true">→</span></a>
+                        <a class="sf-button sf-button-blue" href="<?php echo esc_url(home_url('/product/nos-sauna-baril/')); ?>">Voir les saunas baril <span aria-hidden="true">→</span></a>
                     </div>
                 </article>
                 <article class="sf-saunas__model">
@@ -29,7 +29,7 @@ add_shortcode('saunafab_saunas_modeles', static function () {
                     <div class="sf-saunas__card-body">
                         <h3>Sauna cube</h3>
                         <p>Des lignes droites et un format compact. Ses deux hauteurs de banc permettent de choisir où s’asseoir selon la chaleur recherchée.</p>
-                        <a class="sf-button sf-button-blue" href="<?php echo esc_url(home_url('/product/nos-saunas-cube/')); ?>">Voir les saunas cube <span aria-hidden="true">→</span></a>
+                        <a class="sf-button sf-button-blue" href="<?php echo esc_url(home_url('/product/nos-saunas-cube-copie/')); ?>">Voir les saunas cube <span aria-hidden="true">→</span></a>
                     </div>
                 </article>
             </div>

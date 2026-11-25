@@ -6,17 +6,18 @@ add_shortcode('saunafab_header', function () {
     $id = wp_unique_id('sfh-');
     $logo_url = 'https://saunafab.ca/wp-content/uploads/2024/07/cropped-logo-saunafab.png';
     $groups = array(
-        'Produits' => array(
-            'Sauna baril' => '/product/sauna-baril-82-pouces-4-places/',
-            'Sauna cube' => '/product/nos-saunas-cube/',
-            'Bain froid' => '/product/bain-froid/',
-            'Douches' => '/douches/',
+        'Boutique' => array(
+            'Sauna Cube' => '/product/nos-saunas-cube-copie/',
+            'Sauna baril' => '/product/nos-sauna-baril/',
+            'Douche' => '/product/douche-copie/',
+            'Bain froid' => '/product/bain-froid-copie-2/',
         ),
-        'Informations sur les produits' => array(
-            'Saunas' => '/about-us/',
-            'Bains froids' => '/product/bain-froid/',
+        'Produits' => array(
+            'Saunas' => '/saunas/',
+            'Bains froids' => '/bains-froids/',
             'Douches' => '/douches/',
             'Foyers' => '/foyers-et-porte-buches/',
+            'Accessoires' => '/accessoires/',
         ),
     );
     ob_start(); ?>
@@ -30,13 +31,16 @@ add_shortcode('saunafab_header', function () {
             <nav class="sfh__nav" id="<?php echo esc_attr($id); ?>-nav" aria-label="Navigation principale">
                 <?php foreach ($groups as $label => $items) : ?>
                     <details class="sfh__dropdown">
-                        <summary><?php echo esc_html($label); ?><span aria-hidden="true">⌄</span></summary>
+                        <summary><?php echo esc_html($label); ?><svg class="sfh__chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
                         <ul class="sfh__submenu">
                             <?php foreach ($items as $text => $path) : ?>
                                 <li><a href="<?php echo esc_url(home_url($path)); ?>"><?php echo esc_html($text); ?></a></li>
                             <?php endforeach; ?>
                         </ul>
                     </details>
+                <?php endforeach; ?>
+                <?php foreach (array_slice($groups['Boutique'], 0, 2, true) as $label => $path) : ?>
+                    <a class="sfh__nav-link" href="<?php echo esc_url(home_url($path)); ?>"><?php echo esc_html($label); ?></a>
                 <?php endforeach; ?>
                 <a class="sfh__nav-link" href="<?php echo esc_url(home_url('/elementor-2911/')); ?>">Contact</a>
                 <?php if (function_exists('wc_get_cart_url')) : ?>
@@ -52,7 +56,7 @@ add_shortcode('saunafab_header', function () {
         if (!root) return;
         const toggle = root.querySelector('.sfh__toggle');
         const nav = root.querySelector('.sfh__nav');
-        const mobile = window.matchMedia('(max-width: 860px)');
+        const mobile = window.matchMedia('(max-width: 980px)');
         const dropdowns = [...root.querySelectorAll('details')];
         function closeDropdowns() { dropdowns.forEach(el => el.open = false); }
         function setOpen(open) {
@@ -79,8 +83,9 @@ add_shortcode('saunafab_header', function () {
         document.addEventListener('click', event => {
             if (!root.contains(event.target)) setOpen(false);
         });
-        root.addEventListener('focusout', () => {
-            setTimeout(() => { if (!root.contains(document.activeElement)) setOpen(false); }, 0);
+        root.addEventListener('focusout', event => {
+            // Safari may leave relatedTarget empty while clicking a submenu link.
+            if (event.relatedTarget && !root.contains(event.relatedTarget)) setOpen(false);
         });
         if (mobile.addEventListener) mobile.addEventListener('change', sync);
         else mobile.addListener(sync);

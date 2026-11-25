@@ -112,11 +112,10 @@ add_shortcode('saunafab_modeles', static function () {
             <div class="sf-width">
                 <div class="sf-heading-row">
                     <div><p class="sf-kicker sf-kicker-light">Nos saunas</p><h2 class="sf-title" id="sf-modeles-title">Des modèles pour<br><em>tous les espaces.</em></h2></div>
-                    <a class="sf-button sf-button-outline" href="https://saunafab.ca/about-us/">Voir tous les saunas</a>
                 </div>
                 <div class="sf-model-grid">
-                    <a class="sf-card" href="https://saunafab.ca/product/sauna-baril-82-pouces-4-places/"><img src="<?php echo esc_url($images['baril']); ?>" alt="Sauna baril en cèdre massif"><div class="sf-card-copy"><span>01 / Le classique</span><h3>Sauna baril</h3><p>Authentique et chaleureux.</p></div><span class="sf-round-arrow">→</span></a>
-                    <a class="sf-card" href="https://saunafab.ca/product/nos-saunas-cube/"><img src="<?php echo esc_url($images['cube']); ?>" alt="Sauna cube SaunaFab"><div class="sf-card-copy"><span>02 / La ligne pure</span><h3>Sauna cube</h3><p>Moderne et élégant.</p></div><span class="sf-round-arrow">→</span></a>
+                    <a class="sf-card" href="https://saunafab.ca/product/nos-sauna-baril/"><img src="<?php echo esc_url($images['baril']); ?>" alt="Sauna baril en cèdre massif"><div class="sf-card-copy"><span>01 / Le classique</span><h3>Sauna baril</h3><p>Authentique et chaleureux.</p></div><span class="sf-round-arrow">→</span></a>
+                    <a class="sf-card" href="https://saunafab.ca/product/nos-saunas-cube-copie/"><img src="<?php echo esc_url($images['cube']); ?>" alt="Sauna cube SaunaFab"><div class="sf-card-copy"><span>02 / La ligne pure</span><h3>Sauna cube</h3><p>Moderne et élégant.</p></div><span class="sf-round-arrow">→</span></a>
                 </div>
             </div>
         </section>

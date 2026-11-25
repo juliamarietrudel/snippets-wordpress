@@ -1,0 +1,92 @@
+[
+  {
+    "title": "SaunaFab — CSS — Catalogue",
+    "code": "/* Catalog blocks use the Sauna page components and shared inline gutters. */\n.sf-saunas .sf-catalogue__heading { max-width: none; }\n.sf-catalogue__heading .sf-saunas__actions { margin-top: 24px; }\n.sf-saunas .sf-catalogue__cards .sf-catalogue__photo {\n    object-fit: contain;\n    padding: clamp(12px, 3vw, 24px);\n    background: var(--sf-white);\n}\n#sf-produit-achat { scroll-margin-top: 120px; }\n",
+    "code_type": "css",
+    "location": "site_wide_header",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 16,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section réutilisable pour les pages du catalogue SaunaFab."
+  },
+  {
+    "title": "SaunaFab — PHP — Catalogue — En-tête",
+    "code": "/** Reusable editorial heading. Select the page copy with the sujet attribute. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_catalogue_entete', static function ($attributes = []) {\n    $attributes = shortcode_atts(['sujet' => 'boutique'], $attributes);\n    $pages = [\n        'boutique' => ['Boutique', 'Saunas et équipements pour aménager votre espace extérieur.', '#sf-catalogue', 'Voir les catégories'],\n        'foyers' => ['Foyers pour sauna', 'Comparez les foyers électriques et au bois Harvia pour votre sauna.', '#sf-foyers', 'Comparer les foyers'],\n        'accessoires' => ['Accessoires pour sauna', 'Appuis-tête, kits de départ et autres accessoires pour compléter votre sauna.', '#sf-accessoires', 'Voir les accessoires'],\n        'bains-froids' => ['Bains froids', 'Découvrez le bain extérieur SaunaFab et les points à prévoir avant de l’installer.', '/product/bain-froid-copie-2/', 'Voir la fiche produit'],\n    ];\n    if (!isset($pages[$attributes['sujet']])) {\n        return '';\n    }\n\n    [$title, $description, $destination, $label] = $pages[$attributes['sujet']];\n    $url = str_starts_with($destination, '#') ? $destination : home_url($destination);\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--dark\" aria-label=\"<?php echo esc_attr($title); ?>\">\n        <div class=\"sf-width sf-saunas__heading sf-catalogue__heading\">\n            <h1 class=\"sf-title\"><?php echo esc_html($title); ?></h1>\n            <p><?php echo esc_html($description); ?></p>\n            <div class=\"sf-saunas__actions\">\n                <a class=\"sf-button sf-saunas__primary\" href=\"<?php echo esc_url($url); ?>\"><?php echo esc_html($label); ?> <span aria-hidden=\"true\">→</span></a>\n                <a class=\"sf-button sf-button-outline\" href=\"<?php echo esc_url(home_url('/elementor-2911/')); ?>\">Parler à l’équipe</a>\n            </div>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section réutilisable pour les pages du catalogue SaunaFab."
+  },
+  {
+    "title": "SaunaFab — PHP — Catalogue — Cartes",
+    "code": "/** Cards for the written catalog pages. WooCommerce supplies purchasable items separately. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_catalogue_cartes', static function ($attributes = []) {\n    $attributes = shortcode_atts(['sujet' => 'boutique'], $attributes);\n    $pages = [\n        'boutique' => ['sf-catalogue', 'Explorer les produits', [\n            ['Saunas', 'Comparer les modèles baril et cube.', '/saunas/'],\n            ['Bains froids', 'Découvrir le bain extérieur et préparer son installation.', '/bains-froids/'],\n            ['Douches', 'Découvrir les douches extérieures en cèdre.', '/douches/'],\n            ['Foyers', 'Comparer les options de chauffage Harvia.', '/foyers-et-porte-buches/'],\n            ['Accessoires', 'Voir les appuis-tête et ensembles pour sauna.', '/accessoires/'],\n        ]],\n        'foyers' => ['sf-foyers', 'Comparer les foyers Harvia', [\n            ['Cilindro', 'Un foyer électrique autoportant à finition en acier inoxydable. La gamme présentée comprend les modèles PC60, PC80, PC90 et PC110E.', '/elementor-2911/', '/wp-content/uploads/2024/10/Harvia-Cilindro-e1730485478642-199x300.jpg'],\n            ['KIP', 'Un foyer électrique mural qui libère l’espace au sol. SaunaFab présente des versions de 6 et 8 kW.', '/elementor-2911/', '/wp-content/uploads/2024/10/Harvia-KIP-e1730485307261.jpg'],\n            ['M3', 'Un foyer au bois avec porte vitrée et chargement frontal.', '/elementor-2911/', '/wp-content/uploads/2024/10/Harvia-M3-e1730485385497-199x300.jpeg'],\n            ['M3 SL', 'Un foyer au bois à chargement depuis une pièce adjacente ou l’extérieur.', '/elementor-2911/'],\n        ]],\n        'accessoires' => ['sf-accessoires', 'Compléter votre sauna', [\n            ['Appui-tête en bois', 'Un support pour la tête et la nuque sur le banc du sauna.', '/product/appui-tete/', '/wp-content/uploads/2024/10/461438436_2308098469535596_7459543548102236226_n-1024x768.jpg'],\n            ['Kit de départ', 'Un ensemble avec seau, louche, thermomètre et hygromètre. Consultez la fiche pour vérifier le contenu exact.', '/product/kit-de-depart-sceau-louche-thermometre-hygrometre/', '/wp-content/uploads/2024/10/photo-1678988227223-45112511eca2-1024x683.jpg'],\n            ['Lumière', 'Consultez la fiche de l’éclairage proposé pour le sauna.', '/product/lumiere/'],\n            ['Porte-bûches', 'Gardez le bois à portée de main près de l’espace sauna.', '/product/porte-buche/'],\n        ]],\n    ];\n    $subject = $attributes['sujet'];\n    if (!isset($pages[$subject])) {\n        return '';\n    }\n\n    [$id, $title, $cards] = $pages[$subject];\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--light\" id=\"<?php echo esc_attr($id); ?>\" aria-label=\"<?php echo esc_attr($title); ?>\">\n        <div class=\"sf-width sf-saunas__stack\">\n            <h2 class=\"sf-title\"><?php echo esc_html($title); ?></h2>\n            <div class=\"sf-saunas__models sf-catalogue__cards\">\n                <?php foreach ($cards as $card) : ?>\n                    <?php [$name, $description, $path, $photo] = array_pad($card, 4, null); ?>\n                    <article class=\"sf-saunas__model\">\n                        <?php if ($photo) : ?>\n                            <img class=\"sf-catalogue__photo\" src=\"<?php echo esc_url(home_url($photo)); ?>\" alt=\"\" loading=\"lazy\" decoding=\"async\">\n                        <?php endif; ?>\n                        <div class=\"sf-saunas__card-body\">\n                            <h3><?php echo esc_html($name); ?></h3>\n                            <p><?php echo esc_html($description); ?></p>\n                            <a class=\"sf-button sf-button-blue\" href=\"<?php echo esc_url(home_url($path)); ?>\" aria-label=\"<?php echo esc_attr(($subject === 'foyers' ? 'Se renseigner sur ' : 'Découvrir ') . $name); ?>\"><?php echo $subject === 'foyers' ? 'Se renseigner' : 'Découvrir'; ?> <span aria-hidden=\"true\">→</span></a>\n                        </div>\n                    </article>\n                <?php endforeach; ?>\n            </div>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section réutilisable pour les pages du catalogue SaunaFab."
+  },
+  {
+    "title": "SaunaFab — PHP — Foyers — Conseils",
+    "code": "/** Standalone guidance section for selecting a sauna heater. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_foyers_conseils', static function () {\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--cream\" aria-label=\"Choisir votre foyer\">\n        <div class=\"sf-width sf-saunas__split\">\n            <div class=\"sf-saunas__heading\">\n                <p class=\"sf-kicker\">Préparer votre projet</p>\n                <h2 class=\"sf-title\">Quel foyer convient à votre sauna?</h2>\n                <p>Pour comparer les modèles, indiquez à l’équipe les dimensions du sauna, les surfaces vitrées et le type d’énergie disponible.</p>\n                <a class=\"sf-button sf-button-blue\" href=\"<?php echo esc_url(home_url('/elementor-2911/')); ?>\">Vérifier la compatibilité <span aria-hidden=\"true\">→</span></a>\n            </div>\n            <div class=\"sf-saunas__faq\">\n                <details><summary>Quel format de foyer électrique choisir?</summary><p>Le Cilindro est autoportant et le KIP se fixe au mur. Demandez quel modèle convient à l’espace disponible et à la puissance requise.</p></details>\n                <details><summary>Qu’est-ce qui distingue les foyers au bois M3 et M3 SL?</summary><p>Le M3 se charge par l’avant. Le M3 SL permet le chargement depuis une pièce adjacente ou l’extérieur.</p></details>\n                <details><summary>Puis-je demander un autre modèle Harvia?</summary><p>Oui. Indiquez la référence qui vous intéresse pour vérifier sa disponibilité et sa compatibilité.</p></details>\n            </div>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section réutilisable pour les pages du catalogue SaunaFab."
+  },
+  {
+    "title": "SaunaFab — PHP — Produit WooCommerce — En-tête",
+    "code": "/** Dynamic heading for an Elementor Single Product template. */\ndefined('ABSPATH') || exit;\n\nadd_shortcode('saunafab_produit_entete', static function () {\n    if (!function_exists('is_product') || !is_product()) {\n        return '';\n    }\n\n    $product = wc_get_product(get_queried_object_id());\n    if (!$product) {\n        return '';\n    }\n\n    // Leave pricing, options, gallery and purchase actions to the native product widgets.\n    ob_start();\n    ?>\n    <section class=\"sf-section-block sf-saunas sf-saunas--dark\" aria-label=\"<?php echo esc_attr($product->get_name()); ?>\">\n        <div class=\"sf-width sf-saunas__heading sf-catalogue__heading\">\n            <h1 class=\"sf-title\"><?php echo esc_html($product->get_name()); ?></h1>\n            <div class=\"sf-saunas__actions\">\n                <a class=\"sf-button sf-saunas__primary\" href=\"#sf-produit-achat\">Voir le prix et les options <span aria-hidden=\"true\">↓</span></a>\n                <a class=\"sf-button sf-button-outline\" href=\"<?php echo esc_url(home_url('/elementor-2911/')); ?>\">Parler à l’équipe</a>\n            </div>\n        </div>\n    </section>\n    <?php\n    return ob_get_clean();\n});\n",
+    "code_type": "php",
+    "location": "everywhere",
+    "auto_insert": 1,
+    "insert_number": 1,
+    "use_rules": false,
+    "rules": [],
+    "priority": 10,
+    "location_extra": "",
+    "shortcode_attributes": [],
+    "active": false,
+    "tags": [
+      "saunafab"
+    ],
+    "note": "Section réutilisable pour les pages du catalogue SaunaFab."
+  }
+]

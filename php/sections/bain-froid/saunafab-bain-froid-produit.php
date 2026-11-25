@@ -12,7 +12,7 @@ add_shortcode('saunafab_bain_froid_produit', static function () {
                 <p class="sf-kicker">Le modèle</p>
                 <h2 class="sf-title">Un bain froid pour votre espace extérieur.</h2>
                 <p>Installez-le près de votre sauna ou aménagez-lui un coin à part. Si les options affichées ne correspondent pas à votre installation, l’équipe peut discuter d’une configuration personnalisée.</p>
-                <a class="sf-button sf-button-blue" href="#sf-bain-froid-achat">Consulter les options du bain <span aria-hidden="true">→</span></a>
+                <a class="sf-button sf-button-blue" href="<?php echo esc_url(home_url('/product/bain-froid-copie-2/')); ?>">Consulter les options du bain <span aria-hidden="true">→</span></a>
             </div>
             <div class="sf-saunas__model">
                 <img src="<?php echo esc_url($photo); ?>" alt="Bain froid SaunaFab" loading="lazy" decoding="async">

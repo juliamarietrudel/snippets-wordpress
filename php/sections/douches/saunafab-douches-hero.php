@@ -13,7 +13,7 @@ add_shortcode('saunafab_douches_hero', static function () {
             <h1>Douches extérieures<br><em>en cèdre.</em></h1>
             <p>Une douche en plein air, près du sauna ou sur la terrasse. Choisissez un plafond ouvert ou fermé et les finitions qui conviennent à votre espace.</p>
             <div class="sf-saunas__actions">
-                <a class="sf-button sf-saunas__primary" href="<?php echo esc_url(home_url('/product/douche/')); ?>">Voir la fiche produit <span aria-hidden="true">→</span></a>
+                <a class="sf-button sf-saunas__primary" href="<?php echo esc_url(home_url('/product/douche-copie/')); ?>">Voir la fiche produit <span aria-hidden="true">→</span></a>
                 <a class="sf-button sf-button-outline" href="<?php echo esc_url(home_url('/elementor-2911/')); ?>">Parler à l’équipe</a>
             </div>
         </div>
